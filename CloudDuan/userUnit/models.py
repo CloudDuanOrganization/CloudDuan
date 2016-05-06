@@ -4,5 +4,6 @@ from  django.contrib.auth.models import User
 
 class CdUser(models.Model):
     user = models.OneToOneField(User)
-    def __unicode__(self):
+    signature = models.CharField(max_length=200, null=True)
+    def __str__(self):
         return self.user.username

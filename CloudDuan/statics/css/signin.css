@@ -38,3 +38,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+
+.background {
+  position:absolute;
+  left:0px;
+  top:0px;
+  z-index:-1;
+}

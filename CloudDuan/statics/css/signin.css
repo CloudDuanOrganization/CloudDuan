@@ -46,3 +46,25 @@ body {
   top:0px;
   z-index:-1;
 }
+ul {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  display:table;
+  white-space: normal;
+}
+.index-tab-navs {
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+    white-space: normal;
+}
+
+.index-tab-navs .navs-slider{
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+    white-space: normal;
+    position: relative;
+    display: inline-block;
+}

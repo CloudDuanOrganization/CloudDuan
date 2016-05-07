@@ -17,22 +17,23 @@
     <link href="static/css/signin.css" rel="stylesheet">
   </head>
 
-  <body>
+  <body background="static/images/loginbg_u0.png">
 
     <div class="container">
 
       <form class="form-signin" action="/userUnit/userLogin/" method="POST">
         <h2 class="form-signin-heading">登录</h2>
         <label for="inputUserName" class="sr-only">用户名</label>
-        <input type="userName" id="inputUserName" class="form-control" placeholder="用户名" required autofocus>
+        <input name="username" type="text" id="inputUserName" class="form-control" placeholder="用户名" required autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> 记住我
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <!-- <span class="text-danger"> {{login_err}}</span> -->
       </form>
 
     </div>

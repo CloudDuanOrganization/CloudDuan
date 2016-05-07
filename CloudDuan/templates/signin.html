@@ -46,7 +46,7 @@
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                {% if login_err%}
+                {% if login_err == 1%}
                 <div class="alert alert-warning">
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
@@ -54,8 +54,16 @@
                 <strong>{{login_err}}！</strong>
                 </div>
                 {% endif%}
-                {% if login_err == 'Login Successfully!' %}
+                {% if login_flag == 0 %}
                 <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">
+                &times;
+                </a>
+                <strong>{{login_err}}！</strong>
+                </div>
+                {% endif%}
+                {% if login_flag == 2 %}
+                <div class="alert alert-danger">
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
                 </a>
@@ -71,7 +79,22 @@
                 <label for="inputPassword" class="sr-only">密码</label>
                 <input name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
-                <span class="text-danger"> {{login_err}}</span>
+                {% if register_flag == 1 %}
+                <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">
+                &times;
+                </a>
+                <strong>{{register_err}}！</strong>
+                </div>
+                {% endif%}
+                {% if register_flag == 0 %}
+                <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">
+                &times;
+                </a>
+                <strong>{{register_err}}！</strong>
+                </div>
+                {% endif%}
             </form>
         </div>
     </div>

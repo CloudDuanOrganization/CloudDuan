@@ -29,13 +29,8 @@
                 <a href="#register" data-toggle="tab">注册</a>
             </li>
         </ul>
-        <!-- <div class="index-tab-navs">
-          <div class="navs-slider" data-active-index="1">
-          <a href="#login" class>登录</a>
-          <a href="#register" class>注册</a>
-        </div> -->
         <div class="container tab-pane fade in active" id="login">
-            <form class="form-signin" action="/userUnit/userLogin/" method="POST">
+            <form name="LoginForm" class="form-signin" action="/userUnit/userLogin/" method="POST">
                 <label for="inputUserName" class="sr-only">用户名</label>
                 <input name="username" type="text" id="inputUserName" class="form-control" placeholder="用户名" required autofocus>
                 <label for="inputPassword" class="sr-only">密码</label>
@@ -51,7 +46,7 @@
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
                 </a>
-                <strong>{{login_err}}！</strong>
+                <strong>{{login_err}}</strong>
                 </div>
                 {% endif%}
                 {% if login_flag == 0 %}
@@ -59,7 +54,7 @@
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
                 </a>
-                <strong>{{login_err}}！</strong>
+                <strong>{{login_err}}</strong>
                 </div>
                 {% endif%}
                 {% if login_flag == 2 %}
@@ -67,24 +62,29 @@
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
                 </a>
-                <strong>{{login_err}}！</strong>
+                <strong>{{login_err}}</strong>
                 </div>
                 {% endif%}
             </form>
         </div>
         <div class="container tab-pane fade" id="register">
-            <form class="form-signin" action="/userUnit/userLogin/" method="POST">
+        
+            <form name="RegisterForm" class="form-signin" action="/userUnit/userRegister/" method="POST" onsubmit="return checkRegisterForm()" >
                 <label for="inputUserName" class="sr-only">用户名</label>
                 <input name="username" type="text" id="inputUserName" class="form-control" placeholder="用户名" required autofocus>
+                <label for="inputEmail" class="sr-only">邮箱</label>
+                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="email" required autofocus>
                 <label for="inputPassword" class="sr-only">密码</label>
-                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                <input name="password" type="password" id="inputPassword2" class="form-control" placeholder="密码" required>
+                <label for="inputPassword" class="sr-only">重复密码</label>
+                <input name="rePassword" type="password" id="inputRePassword" class="form-control" placeholder="重复密码" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
                 {% if register_flag == 1 %}
                 <div class="alert alert-success">
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
                 </a>
-                <strong>{{register_err}}！</strong>
+                <strong>{{register_err}}</strong>
                 </div>
                 {% endif%}
                 {% if register_flag == 0 %}
@@ -92,7 +92,7 @@
                 <a href="#" class="close" data-dismiss="alert">
                 &times;
                 </a>
-                <strong>{{register_err}}！</strong>
+                <strong>{{register_err}}</strong>
                 </div>
                 {% endif%}
             </form>

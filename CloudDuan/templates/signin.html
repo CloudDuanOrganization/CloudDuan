@@ -11,15 +11,14 @@
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/signin.css" rel="stylesheet">
-    <title>登陆</title>
+    <title>进入云段</title>
 </head>
 
 <body>
     <div class="background" id＝ "formbackground">
         <img src="/static/images/loginbg_u0.png" height="100%" width="100%">
     </div>
-    <!-- <input type="button" class="btn btn-lg btn-primary" onclick="window.location.href='#login'" value="登录" />
-      <input type="button" class="btn btn-lg btn-primary" onclick="window.location.href='#register'" value="注册" /> -->
+
     <div id="myTabContent" class="tab-content">
         <ul id="myTab" class="nav nav-pills">
             <li class="active">
@@ -29,8 +28,9 @@
                 <a href="#register" data-toggle="tab">注册</a>
             </li>
         </ul>
+
         <div class="container tab-pane fade in active" id="login">
-            <form name="LoginForm" class="form-signin" action="/userUnit/userLogin/" method="POST">
+            <form name="LoginForm" class="form-signin">
                 <label for="inputUserName" class="sr-only">用户名</label>
                 <input name="username" type="text" id="inputUserName" class="form-control" placeholder="用户名" required autofocus>
                 <label for="inputPassword" class="sr-only">密码</label>
@@ -40,67 +40,47 @@
                         <input type="checkbox" value="remember-me"> 记住我
                     </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                {% if login_flag == 1%}
-                <div class="alert alert-warning">
-                <a href="#" class="close" data-dismiss="alert">
-                &times;
-                </a>
-                <strong>{{login_err}}</strong>
+                <button id="loginBtn" class="btn btn-lg btn-primary btn-block" type="button">登录</button>
+                <div class="alert alert-success" id="div_loginResult-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong id="loginResult-success"></strong>
                 </div>
-                {% endif%}
-                {% if login_flag == 0 %}
-                <div class="alert alert-success">
-                <a href="#" class="close" data-dismiss="alert">
-                &times;
-                </a>
-                <strong>{{login_err}}</strong>
+                <div class="alert alert-danger" id="div_loginResult-error">
+                <a href="#" class="close" data-dismiss="alert" id="close_error">&times;</a>
+                <strong id="loginResult-error"></strong>
                 </div>
-                {% endif%}
-                {% if login_flag == 2 %}
-                <div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">
-                &times;
-                </a>
-                <strong>{{login_err}}</strong>
-                </div>
-                {% endif%}
             </form>
         </div>
+
+
         <div class="container tab-pane fade" id="register">
-        
-            <form name="RegisterForm" class="form-signin" action="/userUnit/userRegister/" method="POST" onsubmit="return checkRegisterForm()" >
+            <form name="RegisterForm" class="form-signin" >
                 <label for="inputUserName" class="sr-only">用户名</label>
-                <input name="username" type="text" id="inputUserName" class="form-control" placeholder="用户名" required autofocus>
+                <input name="username" type="text" id="inputUserName2" class="form-control" placeholder="用户名" required autofocus>
                 <label for="inputEmail" class="sr-only">邮箱</label>
-                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="email" required autofocus>
-                <label for="inputPassword" class="sr-only">密码</label>
+                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="email" required>
+                <label for="inputPassword2" class="sr-only">密码</label>
                 <input name="password" type="password" id="inputPassword2" class="form-control" placeholder="密码" required>
-                <label for="inputPassword" class="sr-only">重复密码</label>
+                <label for="inputRePassword" class="sr-only">重复密码</label>
                 <input name="rePassword" type="password" id="inputRePassword" class="form-control" placeholder="重复密码" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
-                {% if register_flag == 1 %}
-                <div class="alert alert-success">
-                <a href="#" class="close" data-dismiss="alert">
-                &times;
-                </a>
-                <strong>{{register_err}}</strong>
+                <button id="registerBtn"class="btn btn-lg btn-primary btn-block" type="button">注册</button>
+                <div class="alert alert-success" id="div_registerResult-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong id="registerResult-success"></strong>
                 </div>
-                {% endif%}
-                {% if register_flag == 0 %}
-                <div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">
-                &times;
-                </a>
-                <strong>{{register_err}}</strong>
+                <div class="alert alert-danger" id="div_registerResult-error">
+                <a href="#" class="close" data-dismiss="alert" id="close_error">&times;</a>
+                <strong id="registerResult-error"></strong>
                 </div>
-                {% endif%}
             </form>
         </div>
+
+
     </div>
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/signin.js"></script>
+    
 </body>
 
 </html>

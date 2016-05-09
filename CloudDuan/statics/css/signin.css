@@ -82,3 +82,7 @@ ul {
     position: relative;
     display: inline-block;
 }
+
+.alert {
+  display: none;
+}

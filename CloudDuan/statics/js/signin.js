@@ -103,7 +103,7 @@ $(window).on('popstate', function() {
                     $("#loginResult-success").html(data.login_err);
                     $("#div_loginResult-success").show();
                     $("#div_loginResult-error").hide();
-                    setTimeout("location.href='/home/';", 1000);  
+                    setTimeout("location.href='/';", 1000);  
                 } else if(data.login_flag == 2) {
                     $("#loginResult-error").html(data.login_err);
                     $("#p_loginResult-error").html("请检查自己的帐号密码。")

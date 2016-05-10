@@ -41,12 +41,12 @@
                     </label>
                 </div>
                 <button id="loginBtn" class="btn btn-lg btn-primary btn-block" type="button">登录</button>
-                <div class="alert alert-success" id="div_loginResult-success">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <div class="alert alert-success in fade" id="div_loginResult-success">
+                <a class="close" data-dismiss="alert" id="close_success">&times;</a>
                 <strong id="loginResult-success"></strong>
                 </div>
-                <div class="alert alert-danger" id="div_loginResult-error">
-                <a href="#" class="close" data-dismiss="alert" id="close_error">&times;</a>
+                <div class="alert alert-danger in fade alert-dismissable" id="div_loginResult-error">
+                <a  class="close"  id="close_login_error">&times;</a>
                 <strong id="loginResult-error"></strong>
                 </div>
             </form>
@@ -64,12 +64,12 @@
                 <label for="inputRePassword" class="sr-only">重复密码</label>
                 <input name="rePassword" type="password" id="inputRePassword" class="form-control" placeholder="重复密码" required>
                 <button id="registerBtn"class="btn btn-lg btn-primary btn-block" type="button">注册</button>
-                <div class="alert alert-success" id="div_registerResult-success">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <div class="alert alert-success in fade" id="div_registerResult-success">
+                <a href="#" class="close" data-dismiss="alert" id="close_success">&times;</a>
                 <strong id="registerResult-success"></strong>
                 </div>
-                <div class="alert alert-danger" id="div_registerResult-error">
-                <a href="#" class="close" data-dismiss="alert" id="close_error">&times;</a>
+                <div class="alert alert-danger in fade alert-dismissable" id="div_registerResult-error">
+                <a class="close" id="close_register_error"> &times;</a>
                 <strong id="registerResult-error"></strong>
                 </div>
             </form>

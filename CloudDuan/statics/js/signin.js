@@ -73,6 +73,7 @@ $(window).on('popstate', function() {
                 if (data.register_flag == 1) {
                     $("#registerResult-success").html(data.register_err);
                     $("#div_registerResult-success").show();
+                    $("#div_registerResult-error").hide(); 
                     setTimeout("location.href='/userUnit/userLogin/';", 1000);   
                 } else {
                     $("#registerResult-error").html("出现错误：" + data.register_err);
@@ -98,11 +99,13 @@ $(window).on('popstate', function() {
                 if (data.login_flag == 0) {
                     $("#loginResult-success").html(data.login_err);
                     $("#div_loginResult-success").show();
+                    $("#div_loginResult-error").hide();
                     setTimeout("location.href='/home/';", 1000);  
                 } else {
                     $("#loginResult-error").html("出现错误：" + data.login_err);
                     $("#div_loginResult-error").show();
-                }  
+                }
+                
             },
         error: function(jqXHR){     
                alert("发生错误：" + jqXHR.status);  
@@ -111,6 +114,10 @@ $(window).on('popstate', function() {
 
     });
 // 单击错误信息的“x”来刷新页面
-    $(".close_error").click(function(){
-        window.location.reload();
+    $("#close_register_error").click(function(){
+        $("#div_registerResult-error").hide();
     });
+    $("#close_login_error").click(function(){
+        $("#div_loginResult-error").hide();
+    });
+    

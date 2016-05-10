@@ -8,7 +8,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/static/images/favicon.ico">
-    <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/signin.css" rel="stylesheet">
     <title>进入云段</title>
@@ -41,14 +40,22 @@
                     </label>
                 </div>
                 <button id="loginBtn" class="btn btn-lg btn-primary btn-block" type="button">登录</button>
-                <div class="alert alert-success" id="div_loginResult-success">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong id="loginResult-success"></strong>
+                <!-- login suucess 警告框 -->
+                <div class="alert alert-success in fade alert-dismissable" id="div_loginResult-success">
+                <a class="close" id="close_login_success">&times;</a>
+                <p id="loginResult-success"></p>
                 </div>
-                <div class="alert alert-danger" id="div_loginResult-error">
-                <a href="#" class="close" data-dismiss="alert" id="close_error">&times;</a>
-                <strong id="loginResult-error"></strong>
+                <!-- login error 警告框  -->
+                <div class="alert alert-danger in fade alert-dismissable" id="div_loginResult-error">
+                <a  class="close"  id="close_login_error">&times;</a>
+                <h4 id="loginResult-error"></h4>
+                <p id="p_loginResult-error"></p>
+                <p id="pbtn_loginResult-error">
+                    <button type="button" class="btn btn-danger">忘记密码？</button>  
+                    <button type="button" class="btn btn-success">重新输入</button>
+                </p>
                 </div>
+
             </form>
         </div>
 
@@ -64,13 +71,20 @@
                 <label for="inputRePassword" class="sr-only">重复密码</label>
                 <input name="rePassword" type="password" id="inputRePassword" class="form-control" placeholder="重复密码" required>
                 <button id="registerBtn"class="btn btn-lg btn-primary btn-block" type="button">注册</button>
-                <div class="alert alert-success" id="div_registerResult-success">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <!-- register success 警告框 -->
+                <div class="alert alert-success  alert-dismissable in fade" id="div_registerResult-success">
+                <a href="#" class="close" id="close_register_success">&times;</a>
                 <strong id="registerResult-success"></strong>
                 </div>
-                <div class="alert alert-danger" id="div_registerResult-error">
-                <a href="#" class="close" data-dismiss="alert" id="close_error">&times;</a>
-                <strong id="registerResult-error"></strong>
+                <!-- register error 警告框 -->
+                <div class="alert alert-danger in fade alert-dismissable" id="div_registerResult-error">
+                <a class="close" id="close_register_error"> &times;</a>
+                <h4 id="registerResult-error"></h4>
+                <p id="p_registerResult-error"></p>
+                <p>  
+                    <button type="button" class="btn btn-success">重新输入</button>
+                </p>
+                
                 </div>
             </form>
         </div>

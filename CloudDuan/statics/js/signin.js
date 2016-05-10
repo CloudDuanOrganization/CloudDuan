@@ -73,9 +73,13 @@ $(window).on('popstate', function() {
                 if (data.register_flag == 1) {
                     $("#registerResult-success").html(data.register_err);
                     $("#div_registerResult-success").show();
+                    $("#div_registerResult-error").hide(); 
                     setTimeout("location.href='/userUnit/userLogin/';", 1000);   
-                } else {
-                    $("#registerResult-error").html("出现错误：" + data.register_err);
+                } else if(data.register_flag == 0) {
+                    $("#registerResult-error").html(data.register_err);
+                    $("#p_registerResult-error").html("请检查自己的输入。")
+                    
+                    $("#div_registerResult-success").hide();
                     $("#div_registerResult-error").show();     
                 }  
             },
@@ -98,11 +102,22 @@ $(window).on('popstate', function() {
                 if (data.login_flag == 0) {
                     $("#loginResult-success").html(data.login_err);
                     $("#div_loginResult-success").show();
+                    $("#div_loginResult-error").hide();
                     setTimeout("location.href='/home/';", 1000);  
-                } else {
-                    $("#loginResult-error").html("出现错误：" + data.login_err);
+                } else if(data.login_flag == 2) {
+                    $("#loginResult-error").html(data.login_err);
+                    $("#p_loginResult-error").html("请检查自己的帐号密码。")
                     $("#div_loginResult-error").show();
-                }  
+                    $("#pbtn_loginResult-error").show();
+                    $("#div_loginResult-success").hide();
+                }else{
+                    $("#loginResult-error").html(data.login_err);
+                    $("#p_loginResult-error").html("请前去验证邮箱。")
+                    $("#div_loginResult-error").show();
+                    $("#div_loginResult-success").hide();
+                    $("#pbtn_loginResult-error").hide();
+                }
+                
             },
         error: function(jqXHR){     
                alert("发生错误：" + jqXHR.status);  
@@ -110,7 +125,19 @@ $(window).on('popstate', function() {
         });
 
     });
-// 单击错误信息的“x”来刷新页面
-    $(".close_error").click(function(){
-        window.location.reload();
+/** 
+*单击警告框的“x”来隐藏警告框
+**/
+    $("#close_register_error").click(function(){
+        $("#div_registerResult-error").hide();
     });
+    $("#close_login_error").click(function(){
+        $("#div_loginResult-error").hide();
+    });
+    $("#close_register_success").click(function(){
+        $("#div_registerResult-success").hide();
+    });
+    $("#close_login_success").click(function(){
+        $("#div_loginResult-success").hide();
+    });
+    

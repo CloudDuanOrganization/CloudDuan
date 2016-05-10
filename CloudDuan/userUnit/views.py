@@ -12,7 +12,6 @@ def userLogin(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                #TODO: Redirect to a success page.
                 return JsonResponse({'login_err':u'登陆成功!', 'login_flag':0})
             else:
                 return JsonResponse({'login_err':u'账号未激活!', 'login_flag':1})
@@ -45,3 +44,17 @@ def userRegister(request):
         except:
             return JsonResponse({'register_err':u'用户已存在!','register_flag':0})
     return HttpResponse('Register Page')
+
+def uploadPortrait(request):
+    if  (request.method == 'POST'):
+        try:
+            file = request.FILES['portrait']
+            user = request.user
+            print (user, file.name)
+            cdUser = user.cduser
+            cdUser.portrait = file
+            cdUser.save()
+            print('*****')
+            return True
+        except:
+            return False

@@ -8,3 +8,11 @@ $(function(){
 	});
 	$('.actGotop').click(function(){$('html,body').animate({scrollTop: '0px'}, 800);}); //火箭动画停留时间，越小消失的越快~
 });
+
+
+
+// $('#publish').modal(options)
+
+$(document).ready(function() {
+  $('#summernote').summernote();
+});

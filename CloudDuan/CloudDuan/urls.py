@@ -17,6 +17,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 import cloudUnit.views
 from CloudDuan import settings
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,7 +27,7 @@ urlpatterns = [
     url(r'^userUnit/', include('userUnit.urls')),
     url(r'^cloudUnit/', include('cloudUnit.urls')),
 
-    url(r'^uploadFiles/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT }),
+    url(r'^uploadFiles/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT }),
 
 ]
 

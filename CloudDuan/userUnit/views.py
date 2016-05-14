@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from userUnit.models import CdUser
+from django.contrib.auth.decorators import login_required
 
 def userLogin(request):
     if request.method == 'POST':
@@ -17,11 +18,13 @@ def userLogin(request):
                 return JsonResponse({'login_err':u'账号未激活!', 'login_flag':1})
         else:
             return JsonResponse({'login_err':u'登陆失败!', 'login_flag':2})
-    return render_to_response('signin.html',{})
+    nextUrl = request.GET.get('next', '')
+    print('---->', nextUrl)
+    return render_to_response('signin.html',{'next':nextUrl})
 
 def userLogout(request):
     logout(request)
-    return HttpResponse('Logout successfully!')
+    return HttpResponseRedirect('/')
 
 def userRegister(request):
     if request.method == 'POST':
@@ -58,3 +61,9 @@ def uploadPortrait(request):
             return True
         except:
             return False
+
+@login_required
+def userProfile(request):
+    print('#########', request.user)
+    cdUser = request.user.cduser
+    return render_to_response("profile.html", {'portrait':cdUser.portrait})

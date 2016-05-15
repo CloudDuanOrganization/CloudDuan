@@ -20,7 +20,7 @@ def userLogin(request):
             return JsonResponse({'login_err':u'登陆失败!', 'login_flag':2})
     nextUrl = request.GET.get('next', '')
     print('---->', nextUrl)
-    return render_to_response('signin.html',{'next':nextUrl})
+    return render_to_response('signin.html',{'nextUrl':nextUrl})
 
 def userLogout(request):
     logout(request)
@@ -66,4 +66,4 @@ def uploadPortrait(request):
 def userProfile(request):
     print('#########', request.user)
     cdUser = request.user.cduser
-    return render_to_response("profile.html", {'portrait':cdUser.portrait})
+    return render_to_response("profile.html", {'cdUser':cdUser})

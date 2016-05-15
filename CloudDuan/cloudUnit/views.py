@@ -7,6 +7,12 @@ def index(request):
 
 def duanPublish(request):
     if request.method == 'POST':
-        print(request.body)
-        print(str(request.body))
+        # print(request.body)
+        # print(str(request.body))
+        # print(request.POST['title'])
+        # print(request.POST['content'])
+        imageList = request.FILES.getlist('multipleFileUpload')
+        for i in imageList:
+            print(i.name)
+
     return HttpResponse('duanPublish')

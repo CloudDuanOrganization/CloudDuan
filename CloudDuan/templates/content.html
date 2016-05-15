@@ -1,15 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{duan.title}}</title>
-</head>
-<body>
-{{duan.publishTime}}
-{{duan.owner}}
-{{duan.up}}
-{{duan.down}}
-<p>------------------------------------------------------</p>
-{{duan.content|safe}}
-</body>
-</html>
+{% extends 'index.html' %} {% block page-content %}
+<div class="container ">
+    <div id="content " class="row">
+        <!-- <div class="col-md-1">
+    		<span class="glyphicon glyphicon-chevron-left"> </span>
+    	</div> -->
+        <div class="col-md-10">
+            <h1>{{duan.title}}</h1>
+            <a href="/userUnit/userProfile">
+                <img class="portrait" src="{{duan.owner.user.cduser.portrait.url}}">
+                <span class="name">{{duan.owner}}
+                </span>
+            </a><small>, {{duan.owner.user.cduser.signature}}</small>
+            <p>{{duan.content|safe}}</p>
+            <div class="col-xs-6 col-md-4">
+                <span class="glyphicon glyphicon-tag"></span>
+                <span class="label label-primary">Tag1</span>
+                <span class="label label-success">Tag2</span>
+                <span class="label label-info">Tag3</span>
+                <span class="label label-warning">Tag4</span>
+                <span class="label label-danger">Tag5</span>
+            </div>
+            <div class="col-xs-6 col-md-4">
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <span class="glyphicon glyphicon-time" id="publishTime"> </span>{{duan.publishTime}}&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-thumbs-up" id="up"> </span>{{duan.up}}&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-thumbs-down" id="down"></span>{{duan.down}}
+            </div>
+        </div>
+        <!-- <div class="col-md-1">
+    		<span class="glyphicon glyphicon-chevron-right"> </span>
+    	</div> -->
+    </div>
+</div>
+{% endblock %}

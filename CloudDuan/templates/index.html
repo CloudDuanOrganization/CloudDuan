@@ -17,6 +17,7 @@
 
 <body>
     <!-- Fixed navbar -->
+    
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -31,11 +32,17 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/">首页</a>
+                        <a href="/">
+                            <img class="home" src="/static/images/icon－首页.png">
+                            <span>首页</span>
+                        </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            我的云段 <span class="caret"></span></a>
+                            <img class="home" src="/static/images/icon－我的云段.png">
+                            <span class="MyCloudDuan">我的云段</span>
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">漫步云端</a></li>
                             <li role="separator" class="divider"></li>
@@ -43,35 +50,48 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">消息中心</a>
+                        <a href="#">
+                            <img class="message" src="/static/images/icon－消息中心.png">
+                            <span>消息中心</span><span class="badge">99+</span>
+                        </a>
                     </li>
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#publish">发布段子</a>
+                        <a href="#" data-toggle="modal" data-target="#publish">
+                            <img class="publishDuan" src="/static/images/icon－发布段子.png">
+                            <span>发布段子</span>
+                        </a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
                     <li>
-                    <a href="#" >
-                        <img class="portrait" src="{{user.cduser.portrait.url}}" >
-                        <span class="name">{{user.username}}</span>
+                        <a href="/userUnit/userProfile">
+                            <img class="portrait" src="{{user.cduser.portrait.url}}">
+                            <span class="name">{{user.username}}</span>
+                        </a>
+                        <li>
+                            <a href="/userUnit/userLogout">
+                                <span class="glyphicon glyphicon-log-out"> </span> 退出登录
+                            </a>
+                        </li>
+                </ul>
+                </li>
+                {%else%}
+                <li>
+                    <a href="/userUnit/userLogin">
+                        <span class="glyphicon glyphicon-log-in"></span> 请先登录
                     </a>
-                    </li>
-                    <li>
-                        <a href="/userUnit/userLogout">退出登录</a>
-                    </li>
-                    {%else%}
-                    <li>
-                        <a href="/userUnit/userLogin">请先登录</a>
-                    </li>
-                    {%endif%}
-                    </li>
+                </li>
+                {%endif%}
+                </li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
         </div>
     </nav>
+    
     <!-- container -->
+    {% block page-content %}
     <div class="container">
         <h3 class="page-header"><img src="static/images/icon－热门推荐.png"> &nbsp;热门推荐</h3>
         <div class="row placeholders">
@@ -188,6 +208,7 @@
             </div>
             <!-- /.modal -->
         </div>
+        {% endblock %}
 </body>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>

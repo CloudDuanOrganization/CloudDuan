@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-</head>
-<body>
-<p>{{cdUser.user}}</p>
-<p>{{cdUser.user.username}}</p>
-
-<img src={{cdUser.portrait.url}} alt="Hi1!" /><br>
-<img src={{user.cduser.portrait.url}} alt="Hi1!" /><br>
-</body>
-</html>
+{% extends 'index.html' %} {% block page-content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img src={{user.cduser.portrait.url}} alt="Hi1!" />
+        </div>
+        <div class="col-md-9">
+            <h2>{{user.username}}&nbsp;&nbsp;&nbsp;&nbsp;<small>{{user.cduser.signature}}</small></h2>
+        </div>
+    </div>
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+            <li class="next"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>
+{%endblock%}

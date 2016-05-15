@@ -98,12 +98,15 @@ $(window).on('popstate', function() {
                 username:$("#inputUserName").val(),
                 password:$("#inputPassword").val(),
             },
-        success: function(data) {
+        success: function(data,response) {
                 if (data.login_flag == 0) {
                     $("#loginResult-success").html(data.login_err);
                     $("#div_loginResult-success").show();
                     $("#div_loginResult-error").hide();
-                    setTimeout("location.href='/';", 1000);  
+                    // setTimeout("location.href='/"+data.nextUrl+"';", 1000);  
+                    console.log(data.nextUrl)
+                    // console.log(data.login_flag)
+                    // console.log(data.login_err)
                 } else if(data.login_flag == 2) {
                     $("#loginResult-error").html(data.login_err);
                     $("#p_loginResult-error").html("请检查自己的帐号密码。")

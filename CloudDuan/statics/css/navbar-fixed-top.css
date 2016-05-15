@@ -61,3 +61,8 @@ body {
     border-top-color: #FFFFFF;
     border-bottom-color: #FFFFFF;
 }
+.portrait {
+    width: 25px;
+    height: 25px;
+
+}

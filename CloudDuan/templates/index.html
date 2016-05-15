@@ -51,20 +51,20 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    <li>    
-                        <img src={{user.cduser.portrait.url}} alt="Hi1!" />
+                    <li>
+                    <a href="#" >
+                        <img class="portrait" src="{{user.cduser.portrait.url}}" >
+                        <span class="name">{{user.username}}</span>
+                    </a>
                     </li>
                     <li>
                         <a href="/userUnit/userLogout">退出登录</a>
                     </li>
-                    <li>
-                        {{user.username}}
-                    </li>
-                        {%else%}
+                    {%else%}
                     <li>
                         <a href="/userUnit/userLogin">请先登录</a>
-                    </li>    
-                        {%endif%}
+                    </li>
+                    {%endif%}
                     </li>
                 </ul>
             </div>
@@ -165,7 +165,6 @@
             <a href="javascript:;" title="Top"></a>
         </div>
         <!-- ./rocket -->
-
         <!-- publish Modal -->
         <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
             <div class="modal-dialog">
@@ -177,8 +176,7 @@
                     <div class="modal-body">
                         <input type="text" class="form-control" id="inputTitle" placeholder="标题">
                         <br>
-                        <div  id="summernote">
-                            
+                        <div id="summernote">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -190,7 +188,6 @@
             </div>
             <!-- /.modal -->
         </div>
-
 </body>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>

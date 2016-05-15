@@ -57,7 +57,7 @@ $(document).ready(function() {
                 content: $('#summernote').summernote('code'),
             },
             success: function(data) {
-
+                alert("发布成功!");
             },
             error: function(jqXHR) {
                 alert("发生错误：" + jqXHR.status);

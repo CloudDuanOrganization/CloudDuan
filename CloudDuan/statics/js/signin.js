@@ -98,13 +98,19 @@ $(window).on('popstate', function() {
                 username:$("#inputUserName").val(),
                 password:$("#inputPassword").val(),
             },
-        success: function(data,response) {
+        success: function(data) {
+                var url = window.location.search;
+                if(url){
+                    nextUrl = url.substring(url.lastIndexOf('=')+1, url.length);
+                }else {
+                    nextUrl = '/';
+                }
+                
                 if (data.login_flag == 0) {
                     $("#loginResult-success").html(data.login_err);
                     $("#div_loginResult-success").show();
                     $("#div_loginResult-error").hide();
-                    // setTimeout("location.href='/"+data.nextUrl+"';", 1000);  
-                    console.log(data.nextUrl)
+                    setTimeout("top.location.href='"+nextUrl+"';", 1000);  
                     // console.log(data.login_flag)
                     // console.log(data.login_err)
                 } else if(data.login_flag == 2) {

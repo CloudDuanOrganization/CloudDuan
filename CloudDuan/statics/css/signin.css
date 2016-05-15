@@ -1,7 +1,7 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #eee;
+  background:rgba(255, 255, 255, 0) none repeat scroll 0 0 !important;
 }
 
 .form-signin {
@@ -85,4 +85,11 @@ ul {
 
 .alert {
   display: none;
+}
+html {
+  background: url(/static/images/loginbg_u0.png) no-repeat center center fixed;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  -o-backgorund-size:cover;
+  background-size: cover;
 }

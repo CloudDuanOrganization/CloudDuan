@@ -51,7 +51,12 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
+                        {% if cdUser.user.is_authenticated %}
+                        <img src={{cdUser.portrait.url}} alt="Hi1!" />
+                        {{cdUser.user.username}}
+                        {%else%}
                         <a href="/userUnit/userLogin">请先登录</a>
+                        {%endif%}
                     </li>
                 </ul>
             </div>

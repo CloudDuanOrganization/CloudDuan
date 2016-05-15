@@ -51,9 +51,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        {% if cdUser.user.is_authenticated %}
-                        <img src={{cdUser.portrait.url}} alt="Hi1!" />
-                        {{cdUser.user.username}}
+                        {% if user.is_authenticated %}
+                        <img src={{user.cdUser.portrait.url}} alt="Hi1!" />
+                        <a href="/userUnit/userLogout">退出登录</a>
+                        {{user.username}}
                         {%else%}
                         <a href="/userUnit/userLogin">请先登录</a>
                         {%endif%}

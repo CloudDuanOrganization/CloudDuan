@@ -66,4 +66,4 @@ def uploadPortrait(request):
 def userProfile(request):
     print('#########', request.user)
     cdUser = request.user.cduser
-    return render_to_response("profile.html", {'cdUser':cdUser})
+    return render_to_response("profile.html", {'cdUser':cdUser, 'user':request.user})

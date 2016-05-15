@@ -9,7 +9,7 @@ from userUnit.models import CdUser
 
 class Duan(models.Model):
     title = models.CharField(max_length=50, null=True)
-    content = models.CharField(max_length=200, null=False)
+    content = models.TextField(null=False)
     publishTime = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(CdUser, related_name='duanOwner',null=False)
     up = models.IntegerField(default=0)

@@ -118,7 +118,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# 注意,不设置成False, datetime的时区不对
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

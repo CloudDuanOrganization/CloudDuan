@@ -50,13 +50,20 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>    
+                        <img src={{user.cduser.portrait.url}} alt="Hi1!" />
+                    </li>
                     <li>
-                        {% if user.is_authenticated %}
-                        <img src={{user.cdUser.portrait.url}} alt="Hi1!" />
                         <a href="/userUnit/userLogout">退出登录</a>
+                    </li>
+                    <li>
                         {{user.username}}
+                    </li>
                         {%else%}
+                    <li>
                         <a href="/userUnit/userLogin">请先登录</a>
+                    </li>    
                         {%endif%}
                     </li>
                 </ul>

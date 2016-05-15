@@ -6,8 +6,6 @@ from userUnit.models import CdUser
 from django.contrib.auth.decorators import login_required
 
 def userLogin(request):
-    nextUrl = request.GET.get('next', '')
-    print('---->', nextUrl)
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -15,12 +13,14 @@ def userLogin(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return JsonResponse({'login_err':u'登陆成功!', 'login_flag':0, 'nextUrl':nextUrl})
+                return JsonResponse({'login_err':u'登陆成功!', 'login_flag':0})
             else:
-                return JsonResponse({'login_err':u'账号未激活!', 'login_flag':1, 'nextUrl':nextUrl})
+                return JsonResponse({'login_err':u'账号未激活!', 'login_flag':1})
         else:
-            return JsonResponse({'login_err':u'登陆失败!', 'login_flag':2, 'nextUrl':nextUrl})
-    return render_to_response('signin.html')
+            return JsonResponse({'login_err':u'登陆失败!', 'login_flag':2})
+    nextUrl = request.GET.get('next', '')
+    print('---->', nextUrl)
+    return render_to_response('signin.html',{'next':nextUrl})
 
 def userLogout(request):
     logout(request)

@@ -14,8 +14,8 @@ def duanPublish(request):
     if request.method == 'POST':
         # print(request.body)
         # print(str(request.body))
-        print(request.POST.get('title'))
-        print(request.POST.get('content'))
+        # print(request.POST.get('title'))
+        # print(request.POST.get('content'))
         print('###########')
         print(request.POST.get('cover'))
         newDuan = Duan()
@@ -23,6 +23,7 @@ def duanPublish(request):
         newDuan.content = request.POST.get('content')
         newDuan.owner = request.user.cduser
         # newDuan.image = request.FILES['cover']
+        newDuan.image = request.POST.get('cover')
         newDuan.save()
 
         return HttpResponse(newDuan.content)

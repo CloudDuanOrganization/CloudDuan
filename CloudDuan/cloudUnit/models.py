@@ -15,7 +15,8 @@ class Duan(models.Model):
     owner = models.ForeignKey(CdUser, related_name='duanOwner',null=False)
     up = models.IntegerField(default=0)
     down = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='uploadFiles/Duan/%Y/%m/%d', null=True)
+    # image = models.ImageField(upload_to='uploadFiles/Duan/%Y/%m/%d', null=True)
+    image = models.TextField(null=True)
     liker = models.ManyToManyField(CdUser, related_name='like')
     disliker = models.ManyToManyField(CdUser, related_name='dislike')
 

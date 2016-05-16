@@ -12,12 +12,12 @@
     <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
     <link href="/static/css/rocket.css" rel="stylesheet">
     <link href="/static/css/summernote.css" rel="stylesheet">
+    <link href="/static/css/fileinput.min.css" rel="stylesheet">
     <title>云段</title>
 </head>
 
 <body>
     <!-- Fixed navbar -->
-    
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -89,7 +89,6 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-    
     <!-- container -->
     {% block page-content %}
     <div class="container">
@@ -191,11 +190,16 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="publishModal">发布段子</h4>
+                        <h4 class="modal-title" id="publishModal" data-toggle="modal" data-target="#cover">发布段子</h4>
                     </div>
                     <div class="modal-body">
                         <input type="text" class="form-control" id="inputTitle" placeholder="标题">
                         <br>
+                        <label class="contorl-label">封面</label>
+                        <input type="file" name="image" id="inputCover" class="file"/>
+                        <!-- <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p> -->
+                        <br>
+                        <label class="contorl-label">内容</label>
                         <div id="summernote">
                         </div>
                     </div>
@@ -212,6 +216,8 @@
 </body>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/fileinput.min.js"></script>
+<script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/static/js/summernote.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 

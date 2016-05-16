@@ -196,7 +196,7 @@
                         <input type="text" class="form-control" id="inputTitle" placeholder="标题">
                         <br>
                         <label class="contorl-label">封面</label>
-                        <input type="file" name="image" id="inputCover" class="file"/>
+                        <input type="file" name="image" id="inputCover" class="file" onchange="readFile(this)" data-show-preview="false" data-show-upload="false"/>
                         <!-- <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p> -->
                         <br>
                         <label class="contorl-label">内容</label>
@@ -216,8 +216,8 @@
 </body>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="/static/js/fileinput.min.js"></script>
-<script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script> -->
+<script type="text/javascript" src="/static/js/fileinput.min.js"></script>
+<script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/static/js/summernote.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 

@@ -7,6 +7,7 @@ from userUnit.models import CdUser
 #     print(instance.title,instance,instance.numb)
 #     return 'uploadFiles/Duan/duan_{0}/{1}'.format(instance.numb, filename)
 
+
 class Duan(models.Model):
     title = models.CharField(max_length=50, null=True)
     content = models.TextField(null=False)
@@ -15,12 +16,25 @@ class Duan(models.Model):
     up = models.IntegerField(default=0)
     down = models.IntegerField(default=0)
     image = models.ImageField(upload_to='uploadFiles/Duan/%Y/%m/%d', null=True)
+    liker = models.ManyToManyField(CdUser, related_name='like')
+    disliker = models.ManyToManyField(CdUser, related_name='dislike')
+
     def __str__(self):
         return self.title
 
 
 class Comment(models.Model):
-    ofDuan = models.ForeignKey(Duan,related_name='ofDuan',null=False)
+    ofDuan = models.ForeignKey(Duan,related_name='comment',null=False,on_delete=models.CASCADE)
     content = models.CharField(max_length=200, null=False)
     owner = models.ForeignKey(CdUser, related_name='commentOwner',null=False)
     publishTime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.ofDuan) + str(self.id)
+
+class DuanLabel(models.Model):
+    text = models.TextField(max_length=10, null=False)
+    ofDuan = models.ForeignKey(Duan,related_name="label",null=False)
+
+    def __str__(self):
+        return self.text

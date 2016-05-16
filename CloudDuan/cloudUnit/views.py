@@ -16,10 +16,13 @@ def duanPublish(request):
         # print(str(request.body))
         print(request.POST.get('title'))
         print(request.POST.get('content'))
+        print('###########')
+        print(request.POST.get('cover'))
         newDuan = Duan()
         newDuan.title = request.POST.get('title')
         newDuan.content = request.POST.get('content')
         newDuan.owner = request.user.cduser
+        # newDuan.image = request.FILES['cover']
         newDuan.save()
 
         return HttpResponse(newDuan.content)
@@ -35,6 +38,6 @@ def duanView(request):
     duan = Duan.objects.filter(id__exact=int(duanID))
     if duan:
         duan = duan[0]
-        return render_to_response('content.html', {'duan': duan})
+        return render_to_response('content.html', {'duan': duan, 'user': request.user})
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')

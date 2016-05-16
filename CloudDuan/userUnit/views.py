@@ -13,6 +13,7 @@ def userLogin(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                request.session.set_expiry(0)
                 return JsonResponse({'login_err':u'登陆成功!', 'login_flag':0})
             else:
                 return JsonResponse({'login_err':u'账号未激活!', 'login_flag':1})

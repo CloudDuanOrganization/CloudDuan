@@ -126,14 +126,15 @@
                     </div>
                     <div class="modal-body">
                         <label class="contorl-label">新头像</label>
-                        <form name="PortraitForm" action="/userUnit/uploadPortrait/" method="POST">
+                        <form name="PortraitForm" enctype="multipart/formdata" action="/userUnit/uploadPortrait/" method="POST">
                         <input type="file" name="image" id="inputPortrait" class="file" data-show-preview="false" data-show-upload="false" />
                         
-                        <input type="submit" class="btn btn-primary" id="uploadBtn"></input>
+                        <input type="submit" class="btn btn-primary text-right" id="uploadBtn"></input>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                        
                         
                     </div>
                 </div>

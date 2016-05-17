@@ -11,7 +11,9 @@
                 <span class="name">{{duan.owner}}
                 </span>
             </a><small>, {{duan.owner.user.cduser.signature}}</small>
+            {%if duan.image %}
             <p><img src="{{duan.image|safe}}"></p>
+            {%endif%}
             <p>{{duan.content|safe}}></p>
             <div class="col-xs-6 col-md-4">
                 <span class="glyphicon glyphicon-tag"></span>

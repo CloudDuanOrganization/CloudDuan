@@ -19,9 +19,10 @@ class Duan(models.Model):
     image = models.TextField(null=True)
     liker = models.ManyToManyField(CdUser, related_name='like')
     disliker = models.ManyToManyField(CdUser, related_name='dislike')
+    viewCount = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title
+        return str(self.id) + str(self.title)
 
 
 class Comment(models.Model):
@@ -33,9 +34,19 @@ class Comment(models.Model):
     def __str__(self):
         return str(self.ofDuan) + str(self.id)
 
+
 class DuanLabel(models.Model):
     text = models.TextField(max_length=10, null=False)
     ofDuan = models.ForeignKey(Duan,related_name="label",null=False)
 
     def __str__(self):
         return self.text
+
+
+class DuanHistory(models.Model):
+    owner = models.ForeignKey(CdUser, null=False)
+    duan = models.ForeignKey(Duan, null=False)
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.owner) + str(self.duan) + str(self.time)

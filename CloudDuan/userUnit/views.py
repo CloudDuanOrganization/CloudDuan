@@ -52,16 +52,19 @@ def userRegister(request):
 def uploadPortrait(request):
     if  (request.method == 'POST'):
         try:
-            file = request.FILES['portrait']
+            print('****#####')
+            file = request.FILES.get('image')
+            print('****#####')
             user = request.user
             print (user, file.name)
             cdUser = user.cduser
             cdUser.portrait = file
             cdUser.save()
             print('*****')
-            return True
+            return HttpResponseRedirect('/userUnit/userProfile/')
         except:
-            return False
+            return HttpResponseRedirect('/userUnit/userProfile/')
+            # return False
 
 @login_required
 def userProfile(request):

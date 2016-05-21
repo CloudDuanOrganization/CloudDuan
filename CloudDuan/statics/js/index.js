@@ -51,8 +51,9 @@ $(document).ready(function() {
                 cover: coverUrl,
             },
             dataType: 'json',
-            success: function() {
+            success: function(data) {
                 alert("发布成功!");
+                setTimeout("top.location.href='?duanID=" + data.duan_id + "';", 1000);
             },
             error: function(jqXHR) {
                 alert("发生错误：" + jqXHR.status);

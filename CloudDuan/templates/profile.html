@@ -128,8 +128,8 @@
                         <label class="contorl-label">新头像</label>
                         <form name="PortraitForm" enctype="multipart/form-data" action="/userUnit/uploadPortrait/" method="POST">
                         <input type="file" name="image" id="inputPortrait" class="file" data-show-preview="false" data-show-upload="false" />
-                        
-                        <input type="submit" class="btn btn-primary text-right" id="uploadBtn">
+                        <br>
+                        <input type="submit" class="btn btn-success text-right" id="uploadBtn">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
                         </form>
                     </div>
@@ -142,6 +142,34 @@
             </div>
             <!-- /.modal -->
         </div>
+
+    </div>
+    <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="publishModal" data-toggle="modal" data-target="#cover">发布段子</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="inputTitle" placeholder="标题">
+                    <br>
+                    <label class="contorl-label">封面</label>
+                    <input type="file" name="image" id="inputCover" class="file" onchange="readFile(this)" data-show-preview="false" data-show-upload="false" />
+                    <!-- <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p> -->
+                    <br>
+                    <label class="contorl-label">内容</label>
+                    <div id="summernote">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="publishBtn">发布</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
     </div>
 </body>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>

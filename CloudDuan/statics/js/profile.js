@@ -1,5 +1,5 @@
 var PortraitUrl;
-//upload image
+// upload image
 // function readPortrait(obj) {
 //     var file = obj.files[0];
 //     //判断类型是不是图片  

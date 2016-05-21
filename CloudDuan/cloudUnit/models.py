@@ -26,6 +26,9 @@ class Duan(models.Model):
     def __str__(self):
         return str(self.id) + str(self.title)
 
+    class Meta:
+        ordering = ['-publishTime']
+
 
 class Comment(models.Model):
     ofDuan = models.ForeignKey(Duan,related_name='comment',null=False,on_delete=models.CASCADE)
@@ -52,3 +55,6 @@ class DuanHistory(models.Model):
 
     def __str__(self):
         return str(self.owner) + str(self.duan) + str(self.time)
+
+    class Meta:
+        ordering = ['-time']

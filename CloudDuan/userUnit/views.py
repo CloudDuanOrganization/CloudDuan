@@ -51,6 +51,7 @@ def userRegister(request):
             return JsonResponse({'register_err':u'用户已存在!','register_flag':0})
     return HttpResponse('Register Page')
 
+@login_required
 def uploadPortrait(request):
     if  (request.method == 'POST'):
         try:
@@ -72,4 +73,7 @@ def uploadPortrait(request):
 def userProfile(request):
     print('#########', request.user)
     cdUser = request.user.cduser
-    return render_to_response("profile.html", {'cdUser':cdUser, 'user':request.user})
+    return render_to_response("profile.html", {'cdUser':cdUser,
+                                               'user':request.user,
+                                               'duanOwn':cdUser.duanOwner.all(),
+                                               'duanHistory':cdUser.duanhistory_set.all()[0:100]})

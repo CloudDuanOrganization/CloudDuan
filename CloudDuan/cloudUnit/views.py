@@ -64,11 +64,11 @@ def duanUp(request):
             duan = Duan.objects.get(id__exact=duanID)
             cduser = request.user.cduser
             if (cduser in duan.liker.all()) or (cduser in duan.disliker.all()):
-                return JsonResponse({'up_err':'已评价','up_flag':0,'duanUp':duan.up,'daunDown':duan.down})
+                return JsonResponse({'up_err':'已评价','up_flag':0,'duanUp':duan.up,'duanDown':duan.down})
             duan.up += 1
             duan.liker.add(cduser)
             duan.save()
-            return JsonResponse({'up_err': '点赞成功', 'up_flag': 1,'duanUp':duan.up,'daunDown':duan.down})
+            return JsonResponse({'up_err': '点赞成功', 'up_flag': 1,'duanUp':duan.up,'duanDown':duan.down})
         except:
             return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})
 
@@ -80,10 +80,10 @@ def duanDown(request):
             duan = Duan.objects.get(id__exact=duanID)
             cduser = request.user.cduser
             if (cduser in duan.liker.all()) or (cduser in duan.disliker.all()):
-                return JsonResponse({'up_err':'已评价','up_flag':0,'duanUp':duan.up,'daunDown':duan.down})
+                return JsonResponse({'up_err':'已评价','up_flag':0,'duanUp':duan.up,'duanDown':duan.down})
             duan.down += 1
             duan.disliker.add(cduser)
             duan.save()
-            return JsonResponse({'up_err': '踩成功', 'up_flag': 1,'duanUp':duan.up,'daunDown':duan.down})
+            return JsonResponse({'up_err': '踩成功', 'up_flag': 1,'duanUp':duan.up,'duanDown':duan.down})
         except:
             return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})

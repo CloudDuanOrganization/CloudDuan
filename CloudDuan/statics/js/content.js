@@ -1,7 +1,9 @@
 $("#upBtn").click(function() {
 
-    var url = window.location.search;
-    var duanID = url.substring(url.lastIndexOf('=') + 1, url.length);
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
+    var subUrl = arrUrl[1].split("/");
+    var duanID = subUrl[3];
 
     $.ajax({
         url: '/cloudUnit/duanUp/',
@@ -20,8 +22,10 @@ $("#upBtn").click(function() {
 });
 $("#downBtn").click(function() {
 
-    var url = window.location.search;
-    var duanID = url.substring(url.lastIndexOf('=') + 1, url.length);
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
+    var subUrl = arrUrl[1].split("/");
+    var duanID = subUrl[3];
     $.ajax({
         url: '/cloudUnit/duanDown/',
         type: 'POST',
@@ -37,3 +41,4 @@ $("#downBtn").click(function() {
         },
     });
 });
+

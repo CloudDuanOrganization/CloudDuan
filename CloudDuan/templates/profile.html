@@ -13,6 +13,7 @@
     <link href="/static/css/rocket.css" rel="stylesheet">
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
+    <link href="/static/css/profile.css" rel="stylesheet">
     <title>个人中心</title>
 </head>
 
@@ -27,11 +28,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">云段</a>
+                <a class="navbar-brand" href="/">云段</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li >
                         <a href="/">
                             <img class="home" src="/static/images/icon－首页.png">
                             <span>首页</span>
@@ -64,7 +65,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    <li>
+                    <li class="active">
                         <a href="/userUnit/userProfile">
                             <img class="portrait" src="{{user.cduser.portrait.url}}">
                             <span class="name">{{user.username}}</span>
@@ -89,10 +90,11 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
+    <!-- container -->
     <div class="container">
         <div class="row">
             <div class="col-md-3" style=" text-align:center;">
-                <img src={{user.cduser.portrait.url}} alt="Hi1!" />
+                <img src={{user.cduser.portrait.url}} alt="Hi1!" class="userPortrait" />
             </div>
             <div class="col-md-9">
                 <h2>{{user.username}}</h2>
@@ -100,8 +102,8 @@
                 <br>
                 <br>
                 <br>
-                <button type="button" class="btn btn-warning" id="browseHistory">浏览记录</button>
-                <button type="button" class="btn btn-success" id="publishHistory">发布记录</button>
+                <button href="#own" type="button" class="btn btn-warning" id="own" data-toggle="tab">发布记录</button>
+                <button href="#history" type="button" class="btn btn-success" id="history" >浏览记录</button>
             </div>
         </div>
         <br>
@@ -110,13 +112,41 @@
                 <button type="button" class="btn  btn-primary" id="uploadPortraitBtn" data-toggle="modal" data-target="#uploadPortrait">
                     <span class="glyphicon glyphicon-arrow-up"> </span>&nbsp;修改头像</button>
             </div>
+            <div class="col-md-9"></div>
         </div>
+        <br>   
+            <div class="row">
+                <div class="col-md-10" >
+                    
+                    {%if duanOwn%}
+                    <div class="center-container-hx">
+                    {% for d in duanOwn %} 
+                        <a href="{% url 'duanView' d.id %}">{{d.title}}</a>
+                    <br><hr>
+                    {%endfor%}
+                    </div>
+                    {%endif%}
+                    {%if duanHistory%}
+                    <div class="center-container-hx">
+                    {%for d in duanHistory%} 
+                    
+                        <img src="{{d.owner.portrait.url}}" class="miniportrait">{{d.owner}} &nbsp; 
+                        <a href="{% url 'duanView' d.id %}">{{d.duan.title}}</a> &nbsp; {{d.time}}
+                    <br><hr>
+                    {%endfor%}
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+        <!-- pager -->
         <nav>
             <ul class="pager">
                 <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
                 <li class="next"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
+        <!-- /.pager -->
+        <!-- upload portrait -->
         <div class="modal fade container" id="uploadPortrait" tabindex="-1" role="dialog" aria-labelledby="uploadPortraitModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -127,23 +157,23 @@
                     <div class="modal-body">
                         <label class="contorl-label">新头像</label>
                         <form name="PortraitForm" enctype="multipart/form-data" action="/userUnit/uploadPortrait/" method="POST">
-                        <input type="file" name="image" id="inputPortrait" class="file" data-show-preview="false" data-show-upload="false" />
-                        <br>
-                        <input type="submit" class="btn btn-success text-right" id="uploadBtn">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                            <input type="file" name="image" id="inputPortrait" class="file" data-show-preview="false" data-show-upload="false" />
+                            <br>
+                            <input type="submit" class="btn btn-success text-right" id="uploadBtn">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        
-                        
                     </div>
                 </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal -->
         </div>
-
+        <!-- /.upload portrait -->
     </div>
+    <!-- container -->
+    <!-- publish modal -->
     <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -171,6 +201,7 @@
         </div>
         <!-- /.modal -->
     </div>
+    <!-- /.publish modal -->
 </body>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>

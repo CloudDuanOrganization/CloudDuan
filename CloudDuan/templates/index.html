@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">云段</a>
+                <a class="navbar-brand" href="/">云段</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -94,89 +94,28 @@
     <div class="container">
         <h3 class="page-header"><img src="static/images/icon－热门推荐.png"> &nbsp;热门推荐</h3>
         <div class="row placeholders">
+            {%for d in hotList%}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic1.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
+                <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
+                
+                <h4><a href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
+                <span class="text-muted">{{d.owner}}</span><br>
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic2.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic3.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic4.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic5.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic6.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic8.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
+            {%endfor%}
         </div>
-        <h3 class="page-header"><img src="static/images/icon－新鲜段子.png"> &nbsp;新鲜段子</h3>
+        <h3 class="page-header"><img src="static/images/icon－新鲜段子.png"  "> &nbsp;新鲜段子</h3>
         <div class="row placeholders">
+        {%for d in newestList%}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic9.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
+            {%if d.hasCover %}
+                <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
+            {%else%}
+                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
+            {%endif%}
+                <h4><a href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
+                <span class="text-muted">{{d.owner}}</span>
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic10.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic11.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic12.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic13.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic14.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic15.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="/static/images/testpic16.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                <h4>Label</h4>
-                <span class="text-muted">Something else</span>
-            </div>
+        {%endfor%}    
         </div>
         <h3 class="page-header"><img src="static/images/icon－排行榜.png"> &nbsp;排行榜</h3>
         <!-- top rocket -->

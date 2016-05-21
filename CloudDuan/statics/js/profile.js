@@ -36,3 +36,9 @@ var PortraitUrl;
 //     });
 
 // });
+$("#history").click(function() {
+	window.location.href="/userUnit/userProfile/history?page=1"
+});
+$("#own").click(function() {
+	window.location.href="/userUnit/userProfile/userOwn?page=1"
+});

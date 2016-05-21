@@ -1,5 +1,14 @@
-button[id="changePortaitBtn"] {
-
-
+.userPortrait {
+    width: 200px;
+    height: 200px;
 }
 
+.miniportrait {
+    width: 25px;
+    height: 25px;
+}
+
+.center-container-hx {
+	box-shadow: 2px 0 5px rgba(214, 214, 215, 0.9), -2px 0 5px
+	rgba(214, 214, 215, 0.9);
+}

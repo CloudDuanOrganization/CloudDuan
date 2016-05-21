@@ -8,7 +8,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-    return render_to_response('index.html', {'user': request.user})
+    return render_to_response('index.html', {'user': request.user,
+                                             'hotList':Duan.objects.order_by('-viewCount')[0:8],
+                                             'newestList':Duan.objects.all()[0:8],
+                                             'rankList':Duan.objects.order_by('-up')[0:8]})
 
 @login_required
 def duanPublish(request):

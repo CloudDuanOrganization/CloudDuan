@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^duanPublish/$', views.duanPublish, name='duanPublish'),
-    url(r'^duanView/$', views.duanView, name='duanView'),
+    url(r'^duanView/(?P<duanID>\d+)/$', views.duanView, name='duanView'),
     url(r'^duanUp/$', views.duanUp, name='duanUp'),
     url(r'^duanDown/$', views.duanDown, name='duanDown'),
 

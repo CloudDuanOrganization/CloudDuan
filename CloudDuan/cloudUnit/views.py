@@ -51,8 +51,8 @@ def duanPublish(request):
         # return HttpResponse(request.POST['content'])
         #  return HttpResponse()
 
-def duanView(request):
-    duanID = request.GET.get('duanID')
+def duanView(request, duanID):
+    # duanID = request.GET.get('duanID')
     duan = Duan.objects.filter(id__exact=int(duanID))
     if duan:
         duan = duan[0]

@@ -39,7 +39,9 @@ def userRegister(request):
             return JsonResponse({'register_err':u'密码非法!','register_flag':0})
         if password != rePassword:
             return JsonResponse({'register_err':u'两次密码不一致!','register_flag':0})
-        #TODO: Check email format
+        userList = User.objects.filter(email__exact = email)
+        if userList:
+            return JsonResponse({'register_err': u'邮箱已存在!', 'register_flag': 0})
         try:
             newUser = CdUser()
             newUser.user = User.objects.create_user(username, email, password)

@@ -1,5 +1,7 @@
 from django.db import models
 from userUnit.models import CdUser
+from CloudDuan.settings import MEDIA_ROOT
+import os, base64
 # Create your models here.
 
 # def duanDirectoryPath(instance, filename):
@@ -15,7 +17,7 @@ class Duan(models.Model):
     owner = models.ForeignKey(CdUser, related_name='duanOwner',null=False)
     up = models.IntegerField(default=0)
     down = models.IntegerField(default=0)
-    # image = models.ImageField(upload_to='uploadFiles/Duan/%Y/%m/%d', null=True)
+    hasCover = models.BooleanField(null=False, default=False)
     image = models.TextField(null=True)
     liker = models.ManyToManyField(CdUser, related_name='like')
     disliker = models.ManyToManyField(CdUser, related_name='dislike')

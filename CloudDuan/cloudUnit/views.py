@@ -27,6 +27,8 @@ def duanPublish(request):
         newDuan.owner = request.user.cduser
         # newDuan.image = request.FILES['cover']
         newDuan.image = request.POST.get('cover')
+        if newDuan.image:
+            newDuan.hasCover = True
         newDuan.save()
         return JsonResponse({'publish_err':u'发布成功','publish_flag':1, 'duan_id': newDuan.id})
 
@@ -52,3 +54,36 @@ def duanView(request):
         return render_to_response('content.html', {'duan': duan, 'user': request.user})
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')
+
+@login_required
+def duanUp(request):
+    if request.method == 'POST':
+        duanID = int(request.POST.get('duanID'))
+        try:
+            print(duanID)
+            duan = Duan.objects.get(id__exact=duanID)
+            cduser = request.user.cduser
+            if (cduser in duan.liker.all()) or (cduser in duan.disliker.all()):
+                return JsonResponse({'up_err':'已评价','up_flag':0})
+            duan.up += 1
+            duan.liker.add(cduser)
+            duan.save()
+            return JsonResponse({'up_err': '点赞成功', 'up_flag': 1})
+        except:
+            return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})
+
+@login_required
+def duanDown(request):
+    if request.method == 'POST':
+        duanID = int(request.POST.get('duanID'))
+        try:
+            duan = Duan.objects.get(id__exact=duanID)
+            cduser = request.user.cduser
+            if (cduser in duan.liker.all()) or (cduser in duan.disliker.all()):
+                return JsonResponse({'up_err':'已评价','up_flag':0})
+            duan.down += 1
+            duan.disliker.add(cduser)
+            duan.save()
+            return JsonResponse({'up_err': '踩成功', 'up_flag': 1})
+        except:
+            return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})

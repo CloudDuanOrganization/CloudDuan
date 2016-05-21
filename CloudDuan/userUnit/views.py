@@ -70,10 +70,29 @@ def uploadPortrait(request):
             # return False
 
 @login_required
-def userProfile(request):
+def toUserProfile(request):
+    return HttpResponseRedirect('/userUnit/userProfile/userOwn?page=1')
+
+@login_required
+def userProfileOwn(request):
     print('#########', request.user)
+    page = int(request.GET.get('page'))
+    if page <= 0:
+        page = 0
     cdUser = request.user.cduser
     return render_to_response("profile.html", {'cdUser':cdUser,
                                                'user':request.user,
-                                               'duanOwn':cdUser.duanOwner.all(),
-                                               'duanHistory':cdUser.duanhistory_set.all()[0:100]})
+                                               'duanOwn':cdUser.duanOwner.all()[10*(page-1):10*page],
+                                               })
+
+@login_required
+def userProfileHistory(request):
+    print('#########', request.user)
+    page = int(request.GET.get('page'))
+    if page <= 0:
+        page = 0
+    cdUser = request.user.cduser
+    return render_to_response("profile.html", {'cdUser':cdUser,
+                                               'user':request.user,
+                                               'duanHistory':cdUser.duanhistory_set.all()[10*(page-1):10*page],
+                                               })

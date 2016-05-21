@@ -31,7 +31,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li >
+                    <li>
                         <a href="/">
                             <img class="home" src="/static/images/icon－首页.png">
                             <span>首页</span>
@@ -114,8 +114,8 @@
                 <div class="col-xs-6 col-md-4">
                 </div>
                 <div class="col-xs-6 col-md-4">
-                    <button id="upBtn" class="btn btn-success" href="#"><span class="glyphicon glyphicon-thumbs-up"> </span><span id="up">{{duan.up}}</span></button>&nbsp;&nbsp;
-                    <button id="downBtn" class="btn btn-danger" href="#"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></button>
+                    <button id="upBtn" class="btn btn-success"  data-toggle="popover" title="你好像点过了" data-content="请不要瞎几把乱点" data-placement="top"><span class="glyphicon glyphicon-thumbs-up"> </span><span id="up">{{duan.up}}</span></button>&nbsp;&nbsp;
+                    <button id="downBtn" class="btn btn-danger" data-toggle="popover" title="你好像点过了" data-content="请不要瞎几把乱点" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></button>
                     <br>
                     <span class="glyphicon glyphicon-time" id="publishTime"> </span>{{duan.publishTime}}
                 </div>
@@ -162,6 +162,8 @@
 <script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/static/js/summernote.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/tooltip.js"></script>
+<script type="text/javascript" src="/static/js/popover.js"></script>
 <script type="text/javascript" src="/static/js/content.js"></script>
 
 </html>

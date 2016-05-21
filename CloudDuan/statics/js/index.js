@@ -52,7 +52,7 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(data) {
-                window.location.href="/cloudUnit/duanView?duanID="+data.duan_id
+                window.location.href="/cloudUnit/duanView/"+data.duan_id
             },
             error: function(jqXHR) {
                 alert("发生错误：" + jqXHR.status);

@@ -10,10 +10,10 @@ $("#upBtn").click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            duanID:duanID,
+            duanID: duanID,
         },
         success: function(data) {
-            $("#up").html(data.duanUp)   
+            $("#up").html(data.duanUp)
         },
         error: function(jqXHR) {
             alert("发生错误：" + jqXHR.status);
@@ -31,10 +31,11 @@ $("#downBtn").click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            duanID:duanID,
+            duanID: duanID,
         },
         success: function(data) {
             $("#down").html(data.duanDown)
+
         },
         error: function(jqXHR) {
             alert("发生错误：" + jqXHR.status);
@@ -42,3 +43,6 @@ $("#downBtn").click(function() {
     });
 });
 
+$(function() {
+    $('[data-toggle="popover"]').popover()
+});

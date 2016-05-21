@@ -4,7 +4,7 @@ from django.http import HttpResponseNotFound
 from userUnit.models import CdUser
 from .models import Duan, Comment, DuanHistory
 from django.contrib.auth.decorators import login_required
-
+from bs4 import BeautifulSoup
 # Create your views here.
 
 def index(request):
@@ -27,6 +27,16 @@ def duanPublish(request):
         newDuan = Duan()
         newDuan.title = request.POST.get('title')
         newDuan.content = request.POST.get('content')
+        soup = BeautifulSoup(newDuan.content)
+        print('$$$$$$$$$$$$$$$')
+        pure = ''
+        for i in soup.strings:
+            print('*************',i,type(i))
+            if i is not None:
+                pure += i
+                print('@@@@@@@@@@@@@@',i)
+        newDuan.pureContent = pure
+        print(pure)
         newDuan.owner = request.user.cduser
         # newDuan.image = request.FILES['cover']
         newDuan.image = request.POST.get('cover')

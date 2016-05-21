@@ -13,6 +13,7 @@ import os, base64
 class Duan(models.Model):
     title = models.CharField(max_length=50, null=True)
     content = models.TextField(null=False)
+    pureContent = models.TextField(null=True)
     publishTime = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(CdUser, related_name='duanOwner',null=False)
     up = models.IntegerField(default=0)

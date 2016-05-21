@@ -52,8 +52,7 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(data) {
-                alert("发布成功!");
-                setTimeout("top.location.href='?duanID=" + data.duan_id + "';", 1000);
+                window.location.href="/cloudUnit/duanView?duanID="+data.duan_id
             },
             error: function(jqXHR) {
                 alert("发生错误：" + jqXHR.status);

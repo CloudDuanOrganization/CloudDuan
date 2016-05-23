@@ -102,6 +102,21 @@ def duanDown(request):
             return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})
 
 @login_required
+def duanCollect(request):
+    if request.method == 'POST':
+        duanID = int(request.POST.get('duanID'))
+        try:
+            duan = Duan.objects.get(id__exact=duanID)
+            cduser = request.user.cduser
+            if duan in cduser.collect.all():
+                return JsonResponse({'collect_err': '已收藏', 'collect_flag': 0})
+            cduser.collect.add(duan)
+            cduser.save()
+            return JsonResponse({'collect_err': '收藏成功', 'collect_flag': 1})
+        except:
+            return JsonResponse({'collect_err': '段子不存在', 'collect_flag': 0})
+
+@login_required
 def duanComment(request):
     if request.method == 'POST':
         duanID = int(request.POST.get('duanID'))

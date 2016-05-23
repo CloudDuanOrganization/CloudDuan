@@ -22,6 +22,7 @@ class Duan(models.Model):
     image = models.TextField(null=True)
     liker = models.ManyToManyField(CdUser, related_name='like')
     disliker = models.ManyToManyField(CdUser, related_name='dislike')
+    collector = models.ManyToManyField(CdUser, related_name='collect')
     viewCount = models.IntegerField(default=0)
 
     def __str__(self):

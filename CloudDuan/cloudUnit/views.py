@@ -4,6 +4,7 @@ from django.http import HttpResponseNotFound
 from userUnit.models import CdUser
 from .models import Duan, Comment, DuanHistory, DuanMessage
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 from bs4 import BeautifulSoup
 # Create your views here.
 
@@ -58,13 +59,20 @@ def duanView(request, duanID):
         duan = duan[0]
         duan.viewCount += 1
         duan.save()
+        hasUp = True
+        hasCollect = True
         if request.user.is_authenticated():
+            cduser = request.user.cduser
             history = DuanHistory()
             history.duan = duan
             history.owner = request.user.cduser
             history.save()
             print('!!!!!!!!!!!!')
-        return render_to_response('content.html', {'duan': duan, 'user': request.user, 'duanComment':duan.comment.all()})
+            hasCollect = (duan in cduser.collect.all())
+            hasUp = (duan in cduser.like.all())
+        return render_to_response('content.html', {'duan': duan, 'user': request.user,
+                                                   'duanComment':duan.comment.all(),'hasUp':hasUp,
+                                                   'hasCollect':hasCollect})
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
@@ -85,7 +93,7 @@ def duanUp(request):
             print(duanID)
             duan = Duan.objects.get(id__exact=duanID)
             cduser = request.user.cduser
-            if (cduser in duan.liker.all()) or (cduser in duan.disliker.all()):
+            if (duan in cduser.like.all()) or (duan in cduser.dislike.all()):
                 return JsonResponse({'up_err':'已评价','up_flag':0,'duanUp':duan.up,'duanDown':duan.down})
             duan.up += 1
             duan.liker.add(cduser)
@@ -102,7 +110,7 @@ def duanDown(request):
         try:
             duan = Duan.objects.get(id__exact=duanID)
             cduser = request.user.cduser
-            if (cduser in duan.liker.all()) or (cduser in duan.disliker.all()):
+            if ((duan in cduser.like.all()) or (duan in cduser.dislike.all())):
                 return JsonResponse({'up_err':'已评价','up_flag':0,'duanUp':duan.up,'duanDown':duan.down})
             duan.down += 1
             duan.disliker.add(cduser)
@@ -147,3 +155,13 @@ def duanComment(request):
             return JsonResponse({'comment_err': '评论成功', 'comment_flag': 1})
         except:
             return JsonResponse({'comment_err': '段子不存在', 'comment_flag': 0})
+
+def duanList(request):
+    return render_to_response('pagination.html',{'duanList':Duan.objects.all()})
+
+def entry_index(request, template='pagination.html'):
+    context = {
+        'duanList': Duan.objects.all(),
+    }
+    return render_to_response(
+        template, context, context_instance=RequestContext(request))

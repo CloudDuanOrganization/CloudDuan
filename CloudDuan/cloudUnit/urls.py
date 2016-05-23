@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^duanDown/$', views.duanDown, name='duanDown'),
     url(r'^duanComment/$', views.duanComment, name='duanComment'),
     url(r'^duanCollect/$', views.duanCollect, name='duanCollect'),
+    url(r'^duanList/$', views.entry_index, name='duanList'),
 
     # url(r'^userRegister/$', views.userRegister, name='userRegister'),
     # url(r'^(?P<question_id>\d+)/$', views.detail, name='detail'),

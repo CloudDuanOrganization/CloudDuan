@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from userUnit.models import CdUser
+from cloudUnit.models import DuanMessage
 from django.contrib.auth.decorators import login_required
 
 def userLogin(request):
@@ -80,10 +81,12 @@ def userProfileOwn(request):
     if page <= 0:
         page = 0
     cdUser = request.user.cduser
-    return render_to_response("profile.html", {'cdUser':cdUser,
-                                               'user':request.user,
-                                               'duanOwn':cdUser.duanOwner.all()[10*(page-1):10*page],
-                                               })
+    return render_to_response(
+        "profile.html",
+        {'cdUser':cdUser,
+        'user':request.user,
+        'duanOwn':cdUser.duanOwner.all()[10*(page-1):10*page],
+    })
 
 @login_required
 def userProfileHistory(request):
@@ -96,3 +99,7 @@ def userProfileHistory(request):
                                                'user':request.user,
                                                'duanHistory':cdUser.duanhistory_set.all()[10*(page-1):10*page],
                                                })
+@login_required
+def userMessageCenter(request):
+    cduser = request.user.cduser
+    return render_to_response('message.html', {'messageList':cduser.toUser.all()})

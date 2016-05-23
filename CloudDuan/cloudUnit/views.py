@@ -59,8 +59,9 @@ def duanView(request, duanID):
         duan = duan[0]
         duan.viewCount += 1
         duan.save()
-        hasUp = True
         hasCollect = True
+        hasUp = True
+        hasDown = True
         if request.user.is_authenticated():
             cduser = request.user.cduser
             history = DuanHistory()
@@ -70,8 +71,11 @@ def duanView(request, duanID):
             print('!!!!!!!!!!!!')
             hasCollect = (duan in cduser.collect.all())
             hasUp = (duan in cduser.like.all())
+            hasDown = (duan in cduser.dislike.all())
         return render_to_response('content.html', {'duan': duan, 'user': request.user,
-                                                   'duanComment':duan.comment.all(),'hasUp':hasUp,
+                                                   'duanComment':duan.comment.all(),
+                                                   'hasUp':hasUp,
+                                                   'hasDown':hasDown,
                                                    'hasCollect':hasCollect})
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')

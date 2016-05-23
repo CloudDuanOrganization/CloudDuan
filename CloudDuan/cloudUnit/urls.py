@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^duanView/(?P<duanID>\d+)/$', views.duanView, name='duanView'),
     url(r'^duanUp/$', views.duanUp, name='duanUp'),
     url(r'^duanDown/$', views.duanDown, name='duanDown'),
+    url(r'^duanComment/$', views.duanComment, name='duanComment'),
 
     # url(r'^userRegister/$', views.userRegister, name='userRegister'),
     # url(r'^(?P<question_id>\d+)/$', views.detail, name='detail'),

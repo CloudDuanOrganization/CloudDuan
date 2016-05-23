@@ -64,7 +64,7 @@ def duanView(request, duanID):
             history.owner = request.user.cduser
             history.save()
             print('!!!!!!!!!!!!')
-        return render_to_response('content.html', {'duan': duan, 'user': request.user})
+        return render_to_response('content.html', {'duan': duan, 'user': request.user, 'duanComment':duan.comment.all()})
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
@@ -100,3 +100,22 @@ def duanDown(request):
             return JsonResponse({'up_err': '踩成功', 'up_flag': 1,'duanUp':duan.up,'duanDown':duan.down})
         except:
             return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})
+
+@login_required
+def duanComment(request):
+    if request.method == 'POST':
+        duanID = int(request.POST.get('duanID'))
+        try:
+            duan = Duan.objects.get(id__exact=duanID)
+            cduser = request.user.cduser
+            comment = Comment()
+            comment.content = request.POST.get('content')
+            if not comment.content:
+                return JsonResponse({'comment_err': '评论内容不得为空', 'comment_flag': 0})
+            comment.ofDuan = duan
+            comment.owner = cduser
+            comment.save()
+            print('@@@@@@@@@@@')
+            return JsonResponse({'comment_err': '评论成功', 'comment_flag': 1})
+        except:
+            return JsonResponse({'comment_err': '段子不存在', 'comment_flag': 0})

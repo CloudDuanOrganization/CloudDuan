@@ -60,3 +60,18 @@ class DuanHistory(models.Model):
 
     class Meta:
         ordering = ['-time']
+
+
+class DuanMessage(models.Model):
+    fromUser = models.ForeignKey(CdUser, null=False, related_name='fromUser')
+    toUser = models.ForeignKey(CdUser, null=False, related_name='toUser')
+    duan = models.ForeignKey(Duan, null=False, related_name='duanMessage')
+    content = models.CharField(max_length=20, null=False)
+    time = models.DateTimeField(auto_now_add=True)
+    isNew = models.BooleanField(default=True,null=False)
+
+    def __str__(self):
+        return str(self.fromUser) + '-->' + str(self.toUser) + ' ' + str(self.time)
+
+    class Meta:
+        ordering = ['-time']

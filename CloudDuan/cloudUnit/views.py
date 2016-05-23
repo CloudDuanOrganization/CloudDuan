@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse,render_to_response
 from django.http import JsonResponse
 from django.http import HttpResponseNotFound
 from userUnit.models import CdUser
-from .models import Duan, Comment, DuanHistory
+from .models import Duan, Comment, DuanHistory, DuanMessage
 from django.contrib.auth.decorators import login_required
 from bs4 import BeautifulSoup
 # Create your views here.
@@ -68,6 +68,15 @@ def duanView(request, duanID):
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
+def createDuanMessage(duan, fromUser, toUser, content):
+    mess = DuanMessage()
+    mess.duan = duan
+    mess.fromUser = fromUser
+    mess.toUser = toUser
+    mess.content = content
+    mess.save()
+    print('_(:з」∠)__(:з」∠)__(:з」∠)__(:з」∠)_')
+
 @login_required
 def duanUp(request):
     if request.method == 'POST':
@@ -81,6 +90,7 @@ def duanUp(request):
             duan.up += 1
             duan.liker.add(cduser)
             duan.save()
+            createDuanMessage(duan, cduser, duan.owner, '赞了')
             return JsonResponse({'up_err': '点赞成功', 'up_flag': 1,'duanUp':duan.up,'duanDown':duan.down})
         except:
             return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})
@@ -97,6 +107,7 @@ def duanDown(request):
             duan.down += 1
             duan.disliker.add(cduser)
             duan.save()
+            createDuanMessage(duan, cduser, duan.owner, '踩了')
             return JsonResponse({'up_err': '踩成功', 'up_flag': 1,'duanUp':duan.up,'duanDown':duan.down})
         except:
             return JsonResponse({'up_err': '段子不存在', 'up_flag': 0})
@@ -112,6 +123,7 @@ def duanCollect(request):
                 return JsonResponse({'collect_err': '已收藏', 'collect_flag': 0})
             cduser.collect.add(duan)
             cduser.save()
+            createDuanMessage(duan, cduser, duan.owner, '收藏了')
             return JsonResponse({'collect_err': '收藏成功', 'collect_flag': 1})
         except:
             return JsonResponse({'collect_err': '段子不存在', 'collect_flag': 0})
@@ -130,6 +142,7 @@ def duanComment(request):
             comment.ofDuan = duan
             comment.owner = cduser
             comment.save()
+            createDuanMessage(duan, cduser, duan.owner, '评论了')
             print('@@@@@@@@@@@')
             return JsonResponse({'comment_err': '评论成功', 'comment_flag': 1})
         except:

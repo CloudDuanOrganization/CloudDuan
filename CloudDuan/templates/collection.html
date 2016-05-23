@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for i in collection %}
+    <h4><a href="{% url 'duanView' i.id %}">{{ i.title }}</a></h4>
+    <p> {{ i.pureContent }}</p>
+    <p> {{ i.owner }}</p>
+    <p> {{ i.publishTime }}</p>
+{% endfor %}
+</body>
+</html>

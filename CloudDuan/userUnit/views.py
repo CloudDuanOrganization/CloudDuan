@@ -99,6 +99,19 @@ def userProfileHistory(request):
                                                'user':request.user,
                                                'duanHistory':cdUser.duanhistory_set.all()[10*(page-1):10*page],
                                                })
+
+@login_required
+def userCollection(request):
+    print('#########', request.user)
+    page = int(request.GET.get('page'))
+    if page <= 0:
+        page = 0
+    cdUser = request.user.cduser
+    return render_to_response("collection.html", {'cdUser':cdUser,
+                                               'user':request.user,
+                                               'collection':cdUser.collect.all()[10*(page-1):10*page],
+                                               })
+
 @login_required
 def userMessageCenter(request):
     cduser = request.user.cduser

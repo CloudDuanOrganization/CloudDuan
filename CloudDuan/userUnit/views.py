@@ -106,7 +106,7 @@ def userProfileHistory(request):
     cdUser = request.user.cduser
     return render_to_response("profile.html", {'cdUser':cdUser,
                                                'user':request.user,
-                                               'duanHistory':cdUser.duanhistory_set.all(),
+                                               'duanHistory':cdUser.duanhistory_set.all()[0:150],
                                                }, context_instance=RequestContext(request))
 
 @login_required

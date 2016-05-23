@@ -13,7 +13,13 @@
     {{ entry.title }}
     {{ entry.publishTime }}<br><br>
 {% endfor %}
-{% show_pages %}
 
+<br><br>
+{% get_pages %}
+{{ pages.previous }}
+{% for page in pages %}
+    {{ page }}
+{% endfor %}
+{{ pages.next }}
 </body>
 </html>

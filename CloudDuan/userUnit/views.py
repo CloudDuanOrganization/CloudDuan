@@ -109,7 +109,7 @@ def userCollection(request):
     cdUser = request.user.cduser
     return render_to_response("collection.html", {'cdUser':cdUser,
                                                'user':request.user,
-                                               'collection':cdUser.collect.all()[10*(page-1):10*page],
+                                               'collection':cdUser.collect.all(),
                                                })
 
 @login_required

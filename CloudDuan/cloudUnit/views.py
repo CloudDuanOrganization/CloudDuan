@@ -157,7 +157,7 @@ def duanComment(request):
             return JsonResponse({'comment_err': '段子不存在', 'comment_flag': 0})
 
 def duanList(request):
-    return render_to_response('pagination.html',{'duanList':Duan.objects.all()})
+    return render_to_response('pagination.html',{'duanList':Duan.objects.all()},context_instance=RequestContext(request))
 
 def entry_index(request, template='pagination.html'):
     context = {

@@ -73,12 +73,16 @@ def uploadPortrait(request):
 
 @login_required
 def toUserProfile(request):
-    return HttpResponseRedirect('/userUnit/userProfile/userOwn?page=1')
+    return HttpResponseRedirect('/userUnit/userProfile/userOwn/')
 
 @login_required
 def userProfileOwn(request):
     print('#########', request.user)
-    page = int(request.GET.get('page'))
+    page = request.GET.get('page')
+    if not page:
+        page = 0
+    else:
+        page = int(page)
     if page <= 0:
         page = 0
     cdUser = request.user.cduser
@@ -92,7 +96,11 @@ def userProfileOwn(request):
 @login_required
 def userProfileHistory(request):
     print('#########', request.user)
-    page = int(request.GET.get('page'))
+    page = request.GET.get('page')
+    if not page:
+        page = 0
+    else:
+        page = int(page)
     if page <= 0:
         page = 0
     cdUser = request.user.cduser
@@ -104,7 +112,11 @@ def userProfileHistory(request):
 @login_required
 def userCollection(request):
     print('#########', request.user)
-    page = int(request.GET.get('page'))
+    page = request.GET.get('page')
+    if not page:
+        page = 0
+    else:
+        page = int(page)
     if page <= 0:
         page = 0
     cdUser = request.user.cduser

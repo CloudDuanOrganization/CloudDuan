@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    {% load el_pagination_tags %}
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -32,7 +33,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li >
+                    <li>
                         <a href="/">
                             <img class="home" src="/static/images/icon－首页.png">
                             <span>首页</span>
@@ -103,7 +104,7 @@
                 <br>
                 <br>
                 <button href="#own" type="button" class="btn btn-warning" id="own" data-toggle="tab">发布记录</button>
-                <button href="#history" type="button" class="btn btn-success" id="history" >浏览记录</button>
+                <button href="#history" type="button" class="btn btn-success" id="history">浏览记录</button>
             </div>
         </div>
         <br>
@@ -114,37 +115,48 @@
             </div>
             <div class="col-md-9"></div>
         </div>
-        <br>   
-            <div class="row">
-                <div class="col-md-10" >
-                    
-                    {%if duanOwn%}
+        <br>
+        <div class="row">
+            <div class="col-md-10">
+                {%if duanOwn%} {% paginate duanOwn %}
+                <div class="center-container-hx">
+                <br>
+                    {% for d in duanOwn %}
+
+                    <a href="{% url 'duanView' d.id %}">{{d.title}}</a>
+                    <br>
+                    <hr> {%endfor%}
+                </div>
+                {%endif%}
+                {%if duanHistory%}{% paginate duanHistory %}
                     <div class="center-container-hx">
-                    {% for d in duanOwn %} 
-                        <a href="{% url 'duanView' d.id %}">{{d.title}}</a>
-                    <br><hr>
-                    {%endfor%}
-                    </div>
-                    {%endif%}
-                    {%if duanHistory%}
-                    <div class="center-container-hx">
-                    {%for d in duanHistory%} 
+                    <hr>
+                    {%for d in duanHistory%}  
                     
                         <img src="{{d.owner.portrait.url}}" class="miniportrait">{{d.owner}} &nbsp; 
-                        <a href="{% url 'duanView' d.id %}">{{d.duan.title}}</a> &nbsp; {{d.time}}
+                        <a href="{% url 'duanView' d.duan.id %}">{{d.duan.title}}</a> &nbsp; {{d.time}}
                     <br><hr>
                     {%endfor%}
                     </div>
                     {%endif%}
-                </div>
-            </div>
-        <!-- pager -->
-        <nav>
-            <ul class="pager">
-                <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-                <li class="next"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+        {% get_pages %}
+
+        <nav style="text-align:center;">
+            <ul class="pagination pagination-lg" >
+
+                <li >{{ pages.previous }}</li>
+                {% for page in pages %}
+                <li> {{ page }}</li>
+                {% endfor %}
+                <li >{{ pages.next }}</li>
+
             </ul>
         </nav>
+            </div>
+        </div>
+
+        <!-- pager -->
+        
         <!-- /.pager -->
         <!-- upload portrait -->
         <div class="modal fade container" id="uploadPortrait" tabindex="-1" role="dialog" aria-labelledby="uploadPortraitModal" aria-hidden="true">

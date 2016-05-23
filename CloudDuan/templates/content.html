@@ -13,6 +13,7 @@
     <link href="/static/css/rocket.css" rel="stylesheet">
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
+    <link href="/static/css/content.css" rel="stylesheet">
     <title>云段</title>
 </head>
 
@@ -89,19 +90,17 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-    <div class="container ">
+    <div class="container " >
         <div id="content " class="row">
             <div class="col-md-1">
-                <span class="glyphicon glyphicon-chevron-left"> </span>
+                <span class="glyphicon glyphicon-menu-left"> </span>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 center-container-hx container">
                 <div class="col-md-10">
                     <h1>{{duan.title}}</h1>
-                    <a href="/userUnit/userProfile">
                         <img class="portrait" src="{{duan.owner.user.cduser.portrait.url}}">
-                        <span class="name">{{duan.owner}}
-                </span>
-                    </a><small>, {{duan.owner.user.cduser.signature}}</small>
+                        <span class="name">{{duan.owner}}</span>
+                    <small>, {{duan.owner.user.cduser.signature}}</small>
                 </div>
                 <div class="col-xs-6 col-md-4">
                     <span class="glyphicon glyphicon-tag"></span>
@@ -113,18 +112,43 @@
                 </div>
                 <div class="col-xs-6 col-md-4">
                 </div>
-                <div class="col-xs-6 col-md-4">
-                    <button id="upBtn" class="btn btn-success"  data-toggle="popover" title="你好像点过了" data-content="请不要再瞎几把乱点" data-placement="top"><span class="glyphicon glyphicon-thumbs-up"> </span><span id="up">{{duan.up}}</span></button>&nbsp;&nbsp;
-                    <button id="downBtn" class="btn btn-danger" data-toggle="popover" title="你好像点过了" data-content="请不要再瞎几把乱点" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></button>
+                <div class="col-xs-6 col-md-4" style="text-align:center;">
+                    <button id="upBtn" class="btn btn-success" data-toggle="popover" title="你好像点过了" data-content="请不要再瞎几把乱点" data-placement="top"><span class="glyphicon glyphicon-thumbs-up"> </span><span id="up">{{duan.up}}</span></button>&nbsp;&nbsp;
+                    <button id="downBtn" class="btn btn-danger" data-toggle="popover" title="你好像点过了" data-content="请不要再瞎几把乱点" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></button>&nbsp;&nbsp;
+
+                    {%if hasCollect%}
+                    <button id="collectBtn" class="btn btn-warning" ><span class="glyphicon glyphicon-star" id="collect"> </span>已收藏</span></button>
+                    {%else%}
+                    <button id="collectBtn" class="btn btn-warning" ><span class="glyphicon glyphicon-star-empty" id="collect"> </span>收藏</span></button>
+                    {%endif%}
                     <br>
-                    <span class="glyphicon glyphicon-time" id="publishTime"> </span>{{duan.publishTime}}
+                    <span class="glyphicon glyphicon-calendar" id="publishTime"> </span>&nbsp;{{duan.publishTime}}
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-10 ">
                     <p>{{duan.content|safe}}</p>
+                    {%if duanComment%}
+                    <hr>
+                    {%for d in duanComment%}
+                    <img class="portrait" src="{{d.owner.user.cduser.portrait.url}}" >{{d.owner}}</img> 
+                    <br>
+                    >>> {{d.content|safe}}  <span style="float:right;">&nbsp;{{d.publishTime}}</span>
+                    <span class="glyphicon glyphicon-calendar" style="float:right;"> </span>
+                    <br>
+                    <hr>
+                    {%endfor%}
+                    {%else%}
+                    <hr>
+                    {%endif%}
+                    
+                    <label class="contorl-label">评论</label>
+                    <div id="summernote2">
+                    </div>
+
+                    <button type="button" class="btn btn-info" style="float: right;" id="commentBtn">发表</button>
                 </div>
             </div>
             <div class="col-md-1">
-                <span class="glyphicon glyphicon-chevron-right"> </span>
+                <span class="glyphicon glyphicon-menu-right"> </span>
             </div>
         </div>
     </div>

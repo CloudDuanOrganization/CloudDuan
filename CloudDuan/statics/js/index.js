@@ -32,7 +32,7 @@ $(document).ready(function() {
 
     //summernote init
     $('#summernote').summernote({
-        height: 300,
+        height: 200,
         minHeight: null,
         maxHeight: null,
         focus: true

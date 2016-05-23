@@ -37,8 +37,8 @@ var PortraitUrl;
 
 // });
 $("#history").click(function() {
-	window.location.href="/userUnit/userProfile/history?page=1"
+	window.location.href="/userUnit/userProfile/history"
 });
 $("#own").click(function() {
-	window.location.href="/userUnit/userProfile/userOwn?page=1"
+	window.location.href="/userUnit/userProfile/userOwn"
 });

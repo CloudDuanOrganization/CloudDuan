@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from userUnit.models import CdUser
 from cloudUnit.models import DuanMessage
+from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
 def userLogin(request):
@@ -85,8 +86,8 @@ def userProfileOwn(request):
         "profile.html",
         {'cdUser':cdUser,
         'user':request.user,
-        'duanOwn':cdUser.duanOwner.all()[10*(page-1):10*page],
-    })
+        'duanOwn':cdUser.duanOwner.all(),
+    }, context_instance=RequestContext(request))
 
 @login_required
 def userProfileHistory(request):
@@ -97,8 +98,8 @@ def userProfileHistory(request):
     cdUser = request.user.cduser
     return render_to_response("profile.html", {'cdUser':cdUser,
                                                'user':request.user,
-                                               'duanHistory':cdUser.duanhistory_set.all()[10*(page-1):10*page],
-                                               })
+                                               'duanHistory':cdUser.duanhistory_set.all(),
+                                               }, context_instance=RequestContext(request))
 
 @login_required
 def userCollection(request):
@@ -110,9 +111,9 @@ def userCollection(request):
     return render_to_response("collection.html", {'cdUser':cdUser,
                                                'user':request.user,
                                                'collection':cdUser.collect.all(),
-                                               })
+                                               }, context_instance=RequestContext(request))
 
 @login_required
 def userMessageCenter(request):
     cduser = request.user.cduser
-    return render_to_response('message.html', {'messageList':cduser.toUser.all()})
+    return render_to_response('message.html', {'messageList':cduser.toUser.all()}, context_instance=RequestContext(request))

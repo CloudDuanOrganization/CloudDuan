@@ -30,7 +30,7 @@ $(function() {
 
 
 
-$(document).ready(function() 
+$(document).ready(function() {
     //如果url中存在锚号,则显示锚号对应的tab
     if (location.hash) {
         $('a[href=' + location.hash + ']').tab('show');

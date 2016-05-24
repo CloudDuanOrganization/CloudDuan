@@ -24,7 +24,21 @@ $("#upBtn").click(function() {
             duanID: duanID,
         },
         success: function(data) {
-            $("#up").html(data.duanUp)
+            if(data.up_flag === 0){
+                
+                $("#upBtn").attr("data-content",data.up_err+",请不要再瞎几把乱点");
+                $("#upBtn").attr('title', '停一停');
+                $('#upBtn').popover('show')
+                // $('#upBtn').popover()
+            }
+            else if(data.up_flag === 1){
+                $("#up").html(data.duanUp)
+                
+                $("#upBtn").attr("data-content",data.up_err);
+                $("#upBtn").attr('title', '恭喜你');
+                $('#upBtn').popover('show')
+                // $('#upBtn').popover()
+            }
         },
         error: function(jqXHR) {
              alert("请登录")
@@ -47,7 +61,20 @@ $("#downBtn").click(function() {
             duanID: duanID,
         },
         success: function(data) {
-            $("#down").html(data.duanDown)
+            if(data.up_flag === 0){
+                
+                $("#downBtn").attr("data-content",data.up_err+",请不要再瞎几把乱点");
+                $("#downBtn").attr('title', '停一停');
+                $('#downBtn').popover('show')
+
+            }
+            else if(data.up_flag === 1){
+                $("#down").html(data.duanDown)
+                
+                $("#downBtn").attr("data-content",data.up_err);
+                $("#downBtn").attr('title', '恭喜你');
+                $('#downBtn').popover('show')
+            }
 
         },
         error: function(jqXHR) {
@@ -73,7 +100,7 @@ $("#commentBtn").click(function() {
             if (data.comment_flag === 1) {
                 location.reload();
             } else if (data.comment_flag === 0) {
-                alert(comment_err);
+                alert(data.comment_err);
             }
         },
         error: function(jqXHR) {
@@ -108,6 +135,4 @@ $("#collectBtn").click(function() {
 });
 
 
-$(function() {
-    $('[data-toggle="popover"]').popover()
-});
+

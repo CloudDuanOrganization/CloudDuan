@@ -128,7 +128,8 @@
                     <hr> {%endfor%}
                 </div>
                 {%endif%}
-                {%if duanHistory%}{% paginate duanHistory %}
+
+                {%if duanHistory%} {% paginate duanHistory %}
                     <div class="center-container-hx">
                     <hr>
                     {%for d in duanHistory%}  
@@ -139,7 +140,8 @@
                     {%endfor%}
                     </div>
                     {%endif%}
-        {% get_pages %}
+            {%if duanOwn or duanHistory%}
+            {% get_pages %}
 
         <nav style="text-align:center;">
             <ul class="pagination pagination-lg" >
@@ -152,6 +154,7 @@
 
             </ul>
         </nav>
+         {%endif%}
             </div>
         </div>
 

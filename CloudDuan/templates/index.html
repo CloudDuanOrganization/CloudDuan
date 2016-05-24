@@ -13,6 +13,7 @@
     <link href="/static/css/rocket.css" rel="stylesheet">
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
     <title>云段</title>
 </head>
 
@@ -46,11 +47,11 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">漫步云端</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">段子单</a></li>
+                            <li><a href="/userUnit/userCollection/">段子单</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/userUnit/userMessageCenter/">
                             <img class="message" src="/static/images/icon－消息中心.png">
                             <span>消息中心</span><span class="badge">99+</span>
                         </a>
@@ -92,35 +93,33 @@
     <!-- container -->
     {% block page-content %}
     <div class="container">
-        <h3 class="page-header"><img src="static/images/icon－热门推荐.png"> &nbsp;热门推荐</h3>
+        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/hotList/"><img src="static/images/icon－热门推荐.png">&nbsp;热门推荐</a></h3>
         <div class="row placeholders">
             {%for d in hotList%}
             <div class="col-xs-6 col-sm-3 placeholder">
-            {%if d.hasCover %}
-                <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
-            {%else%}
-                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
-            {%endif%}   
-                <h4><a href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
-                <span class="text-muted">{{d.owner}}</span><br>
+                <a href="{% url 'duanView' d.id %}">
+                {%if d.hasCover %}
+                <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%else%}
+                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}</a>
+                <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
+                <span class="text-muted">{{d.owner}}</span>
+                <br>
             </div>
             {%endfor%}
         </div>
-        <h3 class="page-header"><img src="static/images/icon－新鲜段子.png"  "> &nbsp;新鲜段子</h3>
+        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/newestList/"><img src="static/images/icon－新鲜段子.png"> &nbsp;新鲜段子</a></h3>
         <div class="row placeholders">
-        {%for d in newestList%}
+            {%for d in newestList%}
             <div class="col-xs-6 col-sm-3 placeholder">
-            {%if d.hasCover %}
-                <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
-            {%else%}
-                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;">
-            {%endif%}
-                <h4><a href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
+                {%if d.hasCover %}
+                <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%else%}
+                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}
+                <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
                 <span class="text-muted">{{d.owner}}</span>
             </div>
-        {%endfor%}    
+            {%endfor%}
         </div>
-        <h3 class="page-header"><img src="static/images/icon－排行榜.png"> &nbsp;排行榜</h3>
+        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/rankList/"><img src="static/images/icon－排行榜.png"> &nbsp;排行榜</a></h3>
         <!-- top rocket -->
         <div class="actGotop">
             <a href="javascript:;" title="Top"></a>
@@ -138,7 +137,7 @@
                         <input type="text" class="form-control" id="inputTitle" placeholder="标题">
                         <br>
                         <label class="contorl-label">封面</label>
-                        <input type="file" name="image" id="inputCover" class="file" onchange="readFile(this)" data-show-preview="false" data-show-upload="false"/>
+                        <input type="file" name="image" id="inputCover" class="file" onchange="readFile(this)" data-show-preview="false" data-show-upload="false" />
                         <!-- <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p> -->
                         <br>
                         <label class="contorl-label">内容</label>

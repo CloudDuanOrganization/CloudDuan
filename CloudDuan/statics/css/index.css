@@ -1,0 +1,24 @@
+a.duanlink {
+	text-decoration:none;
+}
+a.duanlink:link {
+    color: #000000;
+}
+
+a.duanlink:visited {
+    color: #000000
+}
+
+
+/* 已访问的链接 */
+
+a.duanlink:hover {
+    color: #000000
+}
+
+
+/* 鼠标移动到链接上 */
+
+a.duabLink:active {
+    color: #000000
+}

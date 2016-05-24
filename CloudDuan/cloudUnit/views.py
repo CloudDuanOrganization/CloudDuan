@@ -184,3 +184,19 @@ def entry_index(request, template='pagination.html'):
     }
     return render_to_response(
         template, context, context_instance=RequestContext(request))
+
+def getDict():
+    critics = {}
+    for u in CdUser.objects.all():
+        critics[u.id] = {}
+        for d in u.collect.all():
+            critics[u.id][d.id] = 4
+        for d in u.like.all():
+            if d.id in critics[u.id]:
+                critics[u.id][d.id] += 2
+            else:
+                critics[u.id][d.id] = 2
+        for d in u.dislike.all():
+            if d.id not in critics[u.id]:
+                critics[u.id][d.id] = 0
+    return critics

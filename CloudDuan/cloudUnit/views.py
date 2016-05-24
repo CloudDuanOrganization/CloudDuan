@@ -14,6 +14,21 @@ def index(request):
                                              'newestList':Duan.objects.all()[0:8],
                                              'rankList':Duan.objects.order_by('-up')[0:8]})
 
+def hotList(request):
+    return render_to_response('list.html', {'user': request.user,
+                                             'duanList':Duan.objects.order_by('-viewCount')
+                                             }, context_instance=RequestContext(request))
+
+def newestList(request):
+    return render_to_response('list.html', {'user': request.user,
+                                             'duanList':Duan.objects.all(),
+                                             }, context_instance=RequestContext(request))
+
+def rankList(request):
+    return render_to_response('list.html', {'user': request.user,
+                                             'duanList':Duan.objects.order_by('-up')
+                                            }, context_instance=RequestContext(request))
+
 @login_required
 def duanPublish(request):
     if request.method == 'POST':

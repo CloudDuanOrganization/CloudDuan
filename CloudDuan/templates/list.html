@@ -92,22 +92,47 @@
         </div>
     </nav>
     <div class="container center-container-hx">
-        {%if duanList%} {% paginate duanList %} {% for entry in duanList %}
-        <p>{{ entry.title }} {{ entry.publishTime }}</p>
-        <hr>
-        <br> {% endfor %} {%endif%} 
+        <div class="row">
+            <div class="col-md-12">
+                <h3><a class="duanlink" href="#" id="listTitle"></a></h3>
+                <hr>
+            </div>
+            {%if duanList%} {% paginate duanList %} {% for entry in duanList %}
+            <div class="col-md-2">
+                {%if entry.hasCover%}
+                <img class="midleportrait" src="{{entry.image}}"> {%else%}
+                <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
+                <p>{{entry.owner}}</p>
+            </div>
+
+            <div class="col-md-10">
+            <h4><a class="duanlink" href="{% url 'duanView' entry.id %}">{{ entry.title }}</a></h4>
+                <p> content>>{{ entry.pureContent }}</p>
+                <p><span class="glyphicon glyphicon-tag"></span>
+                    <span class="label label-primary">Tag1</span>
+                    <span class="label label-success">Tag2</span>
+                    <span class="label label-info">Tag3</span>
+                    <span class="label label-warning">Tag4</span>
+                    <span class="label label-danger">Tag5</span>
+                    <span style="float:right;"><span class="glyphicon glyphicon-thumbs-down "> </span>&nbsp;踩({{ entry.down }})</span>
+                    <span style="float:right;"><span class="glyphicon glyphicon-thumbs-up " > </span>&nbsp;赞({{ entry.up }})</span>
+                </p>
+                <hr>
+            </div>
+            {% endfor %} {%endif%}
+        </div>
     </div>
     {%if duanList%} {% get_pages %}
-        <nav style="text-align:center;">
-            <ul class="pagination pagination-lg">
-                <li>{{ pages.previous }}</li>
-                {% for page in pages %}
-                <li> {{ page }}</li>
-                {% endfor %}
-                <li>{{ pages.next }}</li>
-            </ul>
-        </nav>
-        {%endif%}
+    <nav style="text-align:center;">
+        <ul class="pagination pagination-lg">
+            <li>{{ pages.previous }}</li>
+            {% for page in pages %}
+            <li> {{ page }}</li>
+            {% endfor %}
+            <li>{{ pages.next }}</li>
+        </ul>
+    </nav>
+    {%endif%}
     <!-- publish Modal -->
     <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -143,5 +168,5 @@
 <script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/static/js/summernote.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
-
+<script type="text/javascript" src="/static/js/list.js"></script>
 </html>

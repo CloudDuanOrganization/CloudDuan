@@ -124,12 +124,14 @@ $("#collectBtn").click(function() {
         },
         success: function(data) {
             if (data.collect_flag === 1) {
-                location.reload();
+                $("#collectBtn").html("<span class=\"glyphicon glyphicon-star\" id=\"collect\"> </span>已收藏")
+                // $("#collect_e").attr('class', 'glyphicon glyphicon-star');
             }
 
         },
         error: function(jqXHR) {
-            alert(jqXHR)
+            alert("请登录")
+            window.location.href='/userUnit/userLogin/?next=/cloudUnit/duanView/'+duanID+'/';
         },
     });
 });

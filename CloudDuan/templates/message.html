@@ -1,12 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for i in messageList %}
-    {{ i.fromUser }}{{ i.content }}{{ i.toUser }}&nbsp;&nbsp;&nbsp;&nbsp;{{ i.time }}<br>
-{% endfor %}
-</body>
-</html>
+    <html lang="zh-CN">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="SunskyXH">
+        <link rel="icon" href="/static/images/favicon.ico">
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
+        <link href="/static/css/rocket.css" rel="stylesheet">
+        <link href="/static/css/summernote.css" rel="stylesheet">
+        <link href="/static/css/fileinput.min.css" rel="stylesheet">
+        <link href="/static/css/index.css" rel="stylesheet">
+        <title>云段</title>
+    </head>
+
+    <body>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">云段</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/">
+                                <img class="home" src="/static/images/icon－首页.png">
+                                <span>首页</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img class="home" src="/static/images/icon－我的云段.png">
+                                <span class="MyCloudDuan">我的云段</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">漫步云端</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/userUnit/userCollection/">段子单</a></li>
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a href="/userUnit/userMessageCenter/">
+                                <img class="message" src="/static/images/icon－消息中心.png">
+                                <span>消息中心</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#publish">
+                                <img class="publishDuan" src="/static/images/icon－发布段子.png">
+                                <span>发布段子</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="/userUnit/userProfile">
+                                <img class="portrait" src="{{user.cduser.portrait.url}}">
+                                <span class="name">{{user.username}}</span>
+                            </a>
+                            <li>
+                                <a href="/userUnit/userLogout">
+                                    <span class="glyphicon glyphicon-log-out"> </span> 退出登录
+                                </a>
+                            </li>
+                    </ul>
+                    </li>
+                    {%else%}
+                    <li>
+                        <a href="/userUnit/userLogin">
+                            <span class="glyphicon glyphicon-log-in"></span> 请先登录
+                        </a>
+                    </li>
+                    {%endif%}
+                    </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            {% for i in messageList %} {{ i.fromUser }}{{ i.content }}你&nbsp;&nbsp;&nbsp;&nbsp;{{ i.time }}
+            <br> {% endfor %}
+        </div>
+        <!-- publish Modal -->
+        <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="publishModal" data-toggle="modal" data-target="#cover">发布段子</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="inputTitle" placeholder="标题">
+                        <br>
+                        <label class="contorl-label">封面</label>
+                        <input type="file" name="image" id="inputCover" class="file" onchange="readFile(this)" data-show-preview="false" data-show-upload="false" />
+                        <!-- <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p> -->
+                        <br>
+                        <label class="contorl-label">内容</label>
+                        <div id="summernote">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="publishBtn">发布</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </body>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/fileinput.min.js"></script>
+    <script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
+    <script type="text/javascript" src="/static/js/summernote.js"></script>
+    <script type="text/javascript" src="/static/js/index.js"></script>
+
+    </html>

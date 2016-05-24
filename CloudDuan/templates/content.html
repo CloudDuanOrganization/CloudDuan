@@ -118,9 +118,9 @@
                     <a tabindex="0" id="downBtn" class="btn btn-danger" role="button"  data-toggle="popover" data-trigger="focus" title="" data-content="" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></a>&nbsp;&nbsp;
 
                     {%if hasCollect%}
-                    <button id="collectBtn" class="btn btn-warning" ><span class="glyphicon glyphicon-star" id="collect"> </span>已收藏</span></button>
+                    <button id="collectBtn" class="btn btn-warning" ><span class="glyphicon glyphicon-star" id="collect"> </span>已收藏</button>
                     {%else%}
-                    <button id="collectBtn" class="btn btn-warning" ><span class="glyphicon glyphicon-star-empty" id="collect"> </span>收藏</span></button>
+                    <button id="collectBtn" class="btn btn-warning" ><span class="glyphicon glyphicon-star-empty" id="collect_e"> </span>收藏</button>
                     {%endif%}
                     <br>
                     <span class="glyphicon glyphicon-calendar" id="publishTime"> </span>&nbsp;{{duan.publishTime}}
@@ -131,8 +131,8 @@
                     <hr>
                     {%for d in duanComment%}
                     <img class="portrait" src="{{d.owner.user.cduser.portrait.url}}" >{{d.owner}}</img> 
-                    <br>
-                    >>> {{d.content|safe}}  <span style="float:right;">&nbsp;{{d.publishTime}}</span>
+                    
+                    <p>{{d.content|safe}}</p>  <span style="float:right;">&nbsp;{{d.publishTime}}</span>
                     <span class="glyphicon glyphicon-calendar" style="float:right;"> </span>
                     <br>
                     <hr>

@@ -14,6 +14,7 @@
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
     <link href="/static/css/profile.css" rel="stylesheet">
+    <link href="/static/css/cdstyle.css" rel="stylesheet">
     <title>个人中心</title>
 </head>
 
@@ -116,50 +117,68 @@
             <div class="col-md-9"></div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-md-10">
-                {%if duanOwn%} {% paginate duanOwn %}
-                <div class="center-container-hx">
-                <br>
-                    {% for d in duanOwn %}
-
-                    <a href="{% url 'duanView' d.id %}">{{d.title}}</a>
-                    <br>
-                    <hr> {%endfor%}
+        <div class="container center-container-hx">
+        
+            <div class="row">
+                {%if duanOwn%} {% paginate duanOwn %}{% for d in duanOwn %}
+                <div class="col-md-1">
+                    <br> {%if d.hasCover%}
+                    <img class="midleportrait" src="{{d.image}}"> {%else%}
+                    <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
+                    <p>{{d.owner}}</p>
                 </div>
-                {%endif%}
-
-                {%if duanHistory%} {% paginate duanHistory %}
-                    <div class="center-container-hx">
+                <div class="col-md-11">
+                    <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.title }}</a></h4>
+                    <p> <small class="text-muted">{{ d.pureContent }}</small></p>
+                    <p><span class="glyphicon glyphicon-tag"></span>
+                        <span class="label label-primary">Tag1</span>
+                        <span class="label label-success">Tag2</span>
+                        <span class="label label-info">Tag3</span>
+                        <span class="label label-warning">Tag4</span>
+                        <span class="label label-danger">Tag5</span>
+                        <span style="float:right;"><span class="glyphicon glyphicon-thumbs-down "> </span>&nbsp;踩({{ d.down }})</span>
+                        <span style="float:right;"><span class="glyphicon glyphicon-thumbs-up " > </span>&nbsp;赞({{ d.up }})</span>
+                    </p>
                     <hr>
-                    {%for d in duanHistory%}  
-                    
-                        <img src="{{d.owner.portrait.url}}" class="miniportrait">{{d.owner}} &nbsp; 
-                        <a href="{% url 'duanView' d.duan.id %}">{{d.duan.title}}</a> &nbsp; {{d.time}}
-                    <br><hr>
-                    {%endfor%}
-                    </div>
-                    {%endif%}
-            {%if duanOwn or duanHistory%}
-            {% get_pages %}
+                </div>
+                {%endfor%}{%endif%}   
+                {%if duanHistory%} {% paginate duanHistory %}{%for d in duanHistory%}
+                <div class="col-md-1">
+                    <br> {%if d.hasCover%}
+                    <img class="midleportrait" src="{{d.image}}"> {%else%}
+                    <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
+                    <p>{{d.owner}}</p>
+                </div>
+                <div class="col-md-11">
+                    <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.duan.title }}</a></h4>
+                    <p> <small class="text-muted">{{ d.duan.pureContent }}</small></p>
+                    <p><span class="glyphicon glyphicon-tag"></span>
+                        <span class="label label-primary">Tag1</span>
+                        <span class="label label-success">Tag2</span>
+                        <span class="label label-info">Tag3</span>
+                        <span class="label label-warning">Tag4</span>
+                        <span class="label label-danger">Tag5</span>
+                        <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ d.time }}</span>
+                    </p>
+                    <hr>
+                </div>
+                {%endfor%}
+                {%endif%} 
 
-        <nav style="text-align:center;">
-            <ul class="pagination pagination-lg" >
-
-                <li >{{ pages.previous }}</li>
-                {% for page in pages %}
-                <li> {{ page }}</li>
-                {% endfor %}
-                <li >{{ pages.next }}</li>
-
-            </ul>
-        </nav>
-         {%endif%}
             </div>
         </div>
-
         <!-- pager -->
-        
+        {%if duanOwn or duanHistory%} {% get_pages %}
+                <nav style="text-align:center;">
+                    <ul class="pagination pagination-lg">
+                        <li>{{ pages.previous }}</li>
+                        {% for page in pages %}
+                        <li> {{ page }}</li>
+                        {% endfor %}
+                        <li>{{ pages.next }}</li>
+                    </ul>
+                </nav>
+                {%endif%}
         <!-- /.pager -->
         <!-- upload portrait -->
         <div class="modal fade container" id="uploadPortrait" tabindex="-1" role="dialog" aria-labelledby="uploadPortraitModal" aria-hidden="true">

@@ -98,16 +98,16 @@
                 <hr>
             </div>
             {%if duanList%} {% paginate duanList %} {% for entry in duanList %}
-            <div class="col-md-2">
+            <div class="col-md-1">
                 {%if entry.hasCover%}
                 <img class="midleportrait" src="{{entry.image}}"> {%else%}
                 <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
                 <p>{{entry.owner}}</p>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-11">
             <h4><a class="duanlink" href="{% url 'duanView' entry.id %}">{{ entry.title }}</a></h4>
-                <p> content>>{{ entry.pureContent }}</p>
+                <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     <span class="label label-primary">Tag1</span>
                     <span class="label label-success">Tag2</span>

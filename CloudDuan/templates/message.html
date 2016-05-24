@@ -95,7 +95,7 @@
         <h3><a class="duanlink" href="#"><span class="glyphicon glyphicon-bell" style="color:#aaaaaa;"> </span>&nbsp;通知消息</a></h3>{%if messageList%}{% paginate messageList %}
         <hr> {% for i in messageList %}
         <p>
-        	用户&nbsp;{{ i.fromUser }}用户&nbsp;{{ i.content }}&nbsp;你的&nbsp;<a href="/cloudUnit/duanView/{{i.duan.id}}/">{{i.duan.title}}</a> <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ i.time }}</span>
+        	用户&nbsp;<img class="miniportrait" src="{{i.fromUser.portrait.url}}">{{ i.fromUser }}用户&nbsp;{{ i.content }}&nbsp;你的&nbsp;<a href="/cloudUnit/duanView/{{i.duan.id}}/">{{i.duan.title}}</a> <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ i.time }}</span>
         </p>
         <hr> {% endfor %}{%endif%}
     </div>

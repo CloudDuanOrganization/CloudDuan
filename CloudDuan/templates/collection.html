@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    {% load el_pagination_tags %}
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -96,7 +97,7 @@
                 <h3><a class="duanlink" href="#"><span class="glyphicon glyphicon-star" style="color:yellow;"> </span>我的段子单</a></h3>
                 <hr>
             </div>
-            {% for i in collection %}
+            {%if collection%}{%paginate collection%} {% for i in collection %}
             <div class="col-md-2">
                 <img class="midleportrait" src="{{i.owner.portrait.url}}">
                 <p> {{ i.owner }}</p>
@@ -113,10 +114,23 @@
                     <span style="float:right;"><span class="glyphicon glyphicon-thumbs-down "> </span>&nbsp;踩({{ i.down }})</span>
                     <span style="float:right;"><span class="glyphicon glyphicon-thumbs-up " > </span>&nbsp;赞({{ i.up }})</span>
                 </p>
-                <hr> </div>
-            {% endfor %}
+                <hr>
+            </div>
+            {% endfor %} {%endif%} 
+
         </div>
     </div>
+    {%if collection%} {% get_pages %}
+            <nav style="text-align:center;">
+                <ul class="pagination pagination-lg">
+                    <li>{{ pages.previous }}</li>
+                    {% for page in pages %}
+                    <li> {{ page }}</li>
+                    {% endfor %}
+                    <li>{{ pages.next }}</li>
+                </ul>
+            </nav>
+            {%endif%}
     <!-- publish Modal -->
     <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
         <div class="modal-dialog">

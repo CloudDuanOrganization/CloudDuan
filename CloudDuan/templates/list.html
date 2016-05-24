@@ -13,10 +13,12 @@
     <link href="/static/css/rocket.css" rel="stylesheet">
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
+    <link href="/static/css/cdstyle.css" rel="stylesheet">
     <title>漫步云段</title>
 </head>
 
 <body>
+    {% load el_pagination_tags %}
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -43,14 +45,14 @@
                             <span class="MyCloudDuan">我的云段</span>
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu active" >
+                        <ul class="dropdown-menu active">
                             <li><a href="/cloudUnit/duanList/">漫步云端</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">段子单</a></li>
+                            <li><a href="/userUnit/userCollection/">段子单</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/userUnit/userMessageCenter/">
                             <img class="message" src="/static/images/icon－消息中心.png">
                             <span>消息中心</span><span class="badge">99+</span>
                         </a>
@@ -89,14 +91,23 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-    {% load el_pagination_tags %} {% paginate duanList %} {% for entry in duanList %} {# your code to show the entry #} {{ entry.title }} {{ entry.publishTime }}
-    <br>
-    <br> {% endfor %}
-    <br>
-    <br> {% get_pages %} {{ pages.previous }}
-    <br>
-    <br> {{ pages.previous }} {% for page in pages %} {{ page }} {% endfor %} {{ pages.next }}
-
+    <div class="container center-container-hx">
+        {%if duanList%} {% paginate duanList %} {% for entry in duanList %}
+        <p>{{ entry.title }} {{ entry.publishTime }}</p>
+        <hr>
+        <br> {% endfor %} {%endif%} 
+    </div>
+    {%if duanList%} {% get_pages %}
+        <nav style="text-align:center;">
+            <ul class="pagination pagination-lg">
+                <li>{{ pages.previous }}</li>
+                {% for page in pages %}
+                <li> {{ page }}</li>
+                {% endfor %}
+                <li>{{ pages.next }}</li>
+            </ul>
+        </nav>
+        {%endif%}
     <!-- publish Modal -->
     <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
         <div class="modal-dialog">

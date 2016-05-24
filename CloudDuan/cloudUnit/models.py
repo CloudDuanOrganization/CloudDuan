@@ -34,7 +34,7 @@ class Duan(models.Model):
 
 class Comment(models.Model):
     ofDuan = models.ForeignKey(Duan,related_name='comment',null=False,on_delete=models.CASCADE)
-    content = models.CharField(max_length=200, null=False)
+    content = models.TextField(null=False)
     owner = models.ForeignKey(CdUser, related_name='commentOwner',null=False)
     publishTime = models.DateTimeField(auto_now_add=True)
 

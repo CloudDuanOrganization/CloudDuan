@@ -104,9 +104,9 @@
                 <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
                 <p>{{entry.owner}}</p>
             </div>
-
+            <div style="display:none;" ><input value="{{entry.id}}" id="duanID" type="textarea" ></div>
             <div class="col-md-11">
-            <h4><a class="duanlink" href="{% url 'duanView' entry.id %}">{{ entry.title }}</a></h4>
+            <h4><a class="duanlink" id="listLink" href="#">{{ entry.title }}</a></h4>
                 <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     <span class="label label-primary">Tag1</span>

@@ -1,26 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="SunskyXH">
+    <link rel="icon" href="/static/images/favicon.ico">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="/static/css/rocket.css" rel="stylesheet">
+    <link href="/static/css/summernote.css" rel="stylesheet">
+    <link href="/static/css/fileinput.min.css" rel="stylesheet">
+    <link href="/static/css/content.css" rel="stylesheet">
+    <title>段子详情</title>
 </head>
+
 <body>
-{% load el_pagination_tags %}
+    {% load el_pagination_tags %} {% paginate 1 duanList starting from page startPage%}{% for duan in duanList %}
+    <div style="display:none;" ><input value="{{duan.id}}" id="duanID" type="textarea" ></div>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">云段</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/">
+                            <img class="home" src="/static/images/icon－首页.png">
+                            <span>首页</span>
+                        </a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img class="home" src="/static/images/icon－我的云段.png">
+                            <span class="MyCloudDuan ">我的云段</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">漫步云端</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/userUnit/userCollection/">段子单</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/userUnit/userMessageCenter/">
+                            <img class="message" src="/static/images/icon－消息中心.png">
+                            <span>消息中心</span><span class="badge">99+</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#publish">
+                            <img class="publishDuan" src="/static/images/icon－发布段子.png">
+                            <span>发布段子</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="/userUnit/userProfile">
+                            <img class="portrait" src="{{user.cduser.portrait.url}}">
+                            <span class="name">{{user.username}}</span>
+                        </a>
+                        <li>
+                            <a href="/userUnit/userLogout">
+                                <span class="glyphicon glyphicon-log-out"> </span> 退出登录
+                            </a>
+                        </li>
+                </ul>
+                </li>
+                {%else%}
+                <li>
+                    <a href="/userUnit/userLogin">
+                        <span class="glyphicon glyphicon-log-in"></span> 请先登录
+                    </a>
+                </li>
+                {%endif%}
+                </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div class="container">
+        <div id="content" class="row">
+            {% get_pages %}
+            <div class="col-md-1" style="float:left;">
+                <span>{{ pages.previous }}</span>
+            </div>
+            <div class="col-md-1" style="float:right;">
+                <p>{{pages.next}}</p>
+            </div>
+            <div class="col-md-10 center-container-hx container">
+                <div class="col-md-10">
+                    <h1> {{ duan.title }}</h1>
+                    <img class="portrait" src="{{duan.owner.user.cduser.portrait.url}}">
+                    <span class="name">{{duan.owner}}</span>
+                    <small>, {{duan.owner.user.cduser.signature}}</small>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <span class="glyphicon glyphicon-tag"></span>
+                    <span class="label label-primary">Tag1</span>
+                    <span class="label label-success">Tag2</span>
+                    <span class="label label-info">Tag3</span>
+                    <span class="label label-warning">Tag4</span>
+                    <span class="label label-danger">Tag5</span>
+                </div>
+                <div class="col-xs-6 col-md-2">
+                </div>
+                <div class="col-xs-6 col-md-4" style="text-align:right;">
+                    <a tabindex="0" id="upBtn" class="btn btn-success" role="button" data-toggle="popover" data-trigger="focus" title="醒一醒" data-content="" data-placement="top"><span class="glyphicon glyphicon-thumbs-up"> </span><span id="up">{{duan.up}}</span></a>&nbsp;&nbsp;
+                    <a tabindex="0" id="downBtn" class="btn btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></a>&nbsp;&nbsp; 
+                    {%if duan in user.cduser.collect.all%}
+                    <button id="collectBtn" class="btn btn-warning"><span class="glyphicon glyphicon-star" id="collect"> </span>已收藏</button>
+                    {%else%}
+                    <button id="collectBtn" class="btn btn-warning"><span class="glyphicon glyphicon-star-empty" id="collect_e"> </span>收藏</button>
+                    {%endif%}
+                    <br>
+                    <span class="glyphicon glyphicon-calendar" id="publishTime"> </span>&nbsp;{{duan.publishTime}}
+                </div>
+				
+                <div class="col-md-10 ">
+                    <p>{{duan.content|safe}}</p>
+                    
+                    {%if duanList%}
+                    <hr> {%for d in duan.comment.all%}
+                    <img class="portrait" src="{{d.owner.user.cduser.portrait.url}}">{{d.owner}}</img>
+                    <p>{{d.content|safe}}</p> <span style="float:right;">&nbsp;{{d.publishTime}}</span>
+                    <span class="glyphicon glyphicon-calendar" style="float:right;"> </span>
+                    <br>
+                    <hr> 
+                    {%endfor%} 
+                    {%else%}
+                    <hr> 
+                    {%endif%} 
+                    {%endfor%}
+                    <label class="contorl-label">评论</label>
+                    <div id="summernote2">
+                    </div>
+                    <button type="button" class="btn btn-info" style="float: right;" id="commentBtn">发表</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="publishModal" data-toggle="modal" data-target="#cover">发布段子</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="inputTitle" placeholder="标题">
+                    <br>
+                    <label class="contorl-label">封面</label>
+                    <input type="file" name="image" id="inputCover" class="file" onchange="readFile(this)" data-show-preview="false" data-show-upload="false" />
+                    <!-- <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p> -->
+                    <br>
+                    <label class="contorl-label">内容</label>
+                    <div id="summernote">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="publishBtn">发布</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
 
-{% paginate 1 duanList starting from page startPage%}
-{% for entry in duanList %}
-    {# your code to show the entry #}
-    {{ entry.title }}<br>
-    {{ entry.id }}<br>
-    {{ entry.publishTime }}<br><br>
-{% endfor %}
 
-<br><br>
-{% get_pages %}
-{{ pages.previous }}
-{#{% for page in pages %}#}
-{#    {{ page }}#}
-{#{% endfor %}#}
-{{ pages.next }}
 </body>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/fileinput.min.js"></script>
+<script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript" src="/static/js/summernote.js"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/tooltip.js"></script>
+<script type="text/javascript" src="/static/js/popover.js"></script>
+<script type="text/javascript" src="/static/js/listView.js"></script>
+
 </html>

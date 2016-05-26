@@ -14,7 +14,7 @@ $("#upBtn").click(function() {
     var url = document.location.toString();
     var arrUrl = url.split("//");
     var subUrl = arrUrl[1].split("/");
-    var duanID = subUrl[3];
+    var duanID = $("#duanID").val();
     var duanType = subUrl[2];
 
     $.ajax({
@@ -53,7 +53,7 @@ $("#downBtn").click(function() {
     var url = document.location.toString();
     var arrUrl = url.split("//");
     var subUrl = arrUrl[1].split("/");
-    var duanID = subUrl[3];
+    var duanID = $("#duanID").val();
     var duanType = subUrl[2];
     $.ajax({
         url: '/cloudUnit/duanDown/',
@@ -89,7 +89,7 @@ $("#commentBtn").click(function() {
     var url = document.location.toString();
     var arrUrl = url.split("//");
     var subUrl = arrUrl[1].split("/");
-    var duanID = subUrl[3];
+    var duanID = $("#duanID").val();
     var duanType = subUrl[2];
 
     $.ajax({
@@ -118,7 +118,8 @@ $("#collectBtn").click(function() {
     var url = document.location.toString();
     var arrUrl = url.split("//");
     var subUrl = arrUrl[1].split("/");
-    var duanID = subUrl[3];
+    var duanID = $("#duanID").val();
+    var duanType = subUrl[2];
     $.ajax({
         url: '/cloudUnit/duanCollect/',
         type: 'POST',
@@ -129,13 +130,12 @@ $("#collectBtn").click(function() {
         success: function(data) {
             if (data.collect_flag === 1) {
                 $("#collectBtn").html("<span class=\"glyphicon glyphicon-star\" id=\"collect\"> </span>已收藏")
-                // $("#collect_e").attr('class', 'glyphicon glyphicon-star');
             }
 
         },
         error: function(jqXHR) {
             alert("请登录")
-            window.location.href='/userUnit/userLogin/?next=/cloudUnit/duanView/'+duanID+'/';
+            window.location.href='/userUnit/userLogin/?next=/cloudUnit/'+duanType+'/'+duanID+'/';
         },
     });
 });

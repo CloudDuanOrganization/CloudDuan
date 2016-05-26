@@ -29,6 +29,39 @@ def rankList(request):
                                              'duanList':Duan.objects.order_by('-up')
                                             }, context_instance=RequestContext(request))
 
+def hotView(request, duanID):
+    duanList = Duan.objects.order_by('-viewCount')
+    startPage = 1
+    for i, d in enumerate(duanList):
+        if d.id == int(duanID):
+            startPage = i + 1
+    return render_to_response('pagination.html', {'user': request.user,
+                                             'duanList': duanList,
+                                             'startPage': startPage
+                                             }, context_instance=RequestContext(request))
+
+def newestView(request, duanID):
+    duanList = Duan.objects.all()
+    startPage = 1
+    for i,d in enumerate(duanList):
+        if d.id == int(duanID):
+            startPage = i + 1
+    return render_to_response('pagination.html', {'user': request.user,
+                                             'duanList': duanList,
+                                             'startPage': startPage
+                                             }, context_instance=RequestContext(request))
+
+def rankView(request, duanID):
+    duanList = Duan.objects.order_by('-up')
+    startPage = 1
+    for i, d in enumerate(duanList):
+        if d.id == int(duanID):
+            startPage = i + 1
+    return render_to_response('pagination.html', {'user': request.user,
+                                             'duanList': duanList,
+                                             'startPage': startPage
+                                            }, context_instance=RequestContext(request))
+
 @login_required
 def duanPublish(request):
     if request.method == 'POST':

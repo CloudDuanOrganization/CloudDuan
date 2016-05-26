@@ -7,20 +7,20 @@
 <body>
 {% load el_pagination_tags %}
 
-{% paginate duanList %}
+{% paginate 1 duanList starting from page startPage%}
 {% for entry in duanList %}
     {# your code to show the entry #}
-    {{ entry.title }}
+    {{ entry.title }}<br>
+    {{ entry.id }}<br>
     {{ entry.publishTime }}<br><br>
 {% endfor %}
 
 <br><br>
 {% get_pages %}
-{{ pages.previous }}<br><br>
 {{ pages.previous }}
-{% for page in pages %}
-    {{ page }}
-{% endfor %}
+{#{% for page in pages %}#}
+{#    {{ page }}#}
+{#{% endfor %}#}
 {{ pages.next }}
 </body>
 </html>

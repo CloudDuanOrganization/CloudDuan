@@ -13,6 +13,9 @@ urlpatterns = [
     url(r'^hotList/$', views.hotList, name='hotList'),
     url(r'^newestList/$', views.newestList, name='newestList'),
     url(r'^rankList/$', views.rankList, name='rankList'),
+    url(r'^hotView/(?P<duanID>\d+)/$', views.hotView, name='hotView'),
+    url(r'^newestView/(?P<duanID>\d+)/$', views.newestView, name='newestView'),
+    url(r'^rankView/(?P<duanID>\d+)/$', views.rankView, name='rankView'),
 
     # url(r'^userRegister/$', views.userRegister, name='userRegister'),
     # url(r'^(?P<question_id>\d+)/$', views.detail, name='detail'),

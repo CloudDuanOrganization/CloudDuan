@@ -38,26 +38,15 @@ def hotView(request, duanID):
     duan = duanList[startPage - 1]
     duan.viewCount += 1
     duan.save()
-    hasCollect = True
-    hasUp = True
-    hasDown = True
     if request.user.is_authenticated():
-        cduser = request.user.cduser
         history = DuanHistory()
         history.duan = duan
         history.owner = request.user.cduser
         history.save()
         print('!!!!!!!!!!!!')
-        hasCollect = (duan in cduser.collect.all())
-        hasUp = (duan in cduser.like.all())
-        hasDown = (duan in cduser.dislike.all())
     return render_to_response('pagination.html', {'user': request.user,
                                                 'duanList': duanList,
-                                                'duanComment': duan.comment.all(),
                                                 'startPage': startPage,
-                                                  'hasUp': hasUp,
-                                                  'hasDown': hasDown,
-                                                  'hasCollect': hasCollect
                                              }, context_instance=RequestContext(request))
 
 def newestView(request, duanID):
@@ -69,26 +58,15 @@ def newestView(request, duanID):
     duan = duanList[startPage - 1]
     duan.viewCount += 1
     duan.save()
-    hasCollect = True
-    hasUp = True
-    hasDown = True
     if request.user.is_authenticated():
-        cduser = request.user.cduser
         history = DuanHistory()
         history.duan = duan
         history.owner = request.user.cduser
         history.save()
         print('!!!!!!!!!!!!')
-        hasCollect = (duan in cduser.collect.all())
-        hasUp = (duan in cduser.like.all())
-        hasDown = (duan in cduser.dislike.all())
     return render_to_response('pagination.html', {'user': request.user,
                                              'duanList': duanList,
                                              'startPage': startPage,
-                                                  'duanComment': duan.comment.all(),
-                                                  'hasUp': hasUp,
-                                                  'hasDown': hasDown,
-                                                  'hasCollect': hasCollect
                                              }, context_instance=RequestContext(request))
 
 def rankView(request, duanID):
@@ -100,26 +78,15 @@ def rankView(request, duanID):
     duan = duanList[startPage - 1]
     duan.viewCount += 1
     duan.save()
-    hasCollect = True
-    hasUp = True
-    hasDown = True
     if request.user.is_authenticated():
-        cduser = request.user.cduser
         history = DuanHistory()
         history.duan = duan
         history.owner = request.user.cduser
         history.save()
         print('!!!!!!!!!!!!')
-        hasCollect = (duan in cduser.collect.all())
-        hasUp = (duan in cduser.like.all())
-        hasDown = (duan in cduser.dislike.all())
     return render_to_response('pagination.html', {'user': request.user,
                                              'duanList': duanList,
                                              'startPage': startPage,
-                                                  'duanComment': duan.comment.all(),
-                                                  'hasUp': hasUp,
-                                                  'hasDown': hasDown,
-                                                  'hasCollect': hasCollect
                                             }, context_instance=RequestContext(request))
 
 @login_required

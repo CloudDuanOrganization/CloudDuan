@@ -119,7 +119,8 @@
                 </div>
                 <div class="col-xs-6 col-md-4" style="text-align:right;">
                     <a tabindex="0" id="upBtn" class="btn btn-success" role="button" data-toggle="popover" data-trigger="focus" title="醒一醒" data-content="" data-placement="top"><span class="glyphicon glyphicon-thumbs-up"> </span><span id="up">{{duan.up}}</span></a>&nbsp;&nbsp;
-                    <a tabindex="0" id="downBtn" class="btn btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></a>&nbsp;&nbsp; {%if hasCollect%}
+                    <a tabindex="0" id="downBtn" class="btn btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="" data-placement="top"><span class="glyphicon glyphicon-thumbs-down"> </span><span id="down">{{duan.down}}</span></a>&nbsp;&nbsp; 
+                    {%if duan in user.cduser.collect.all%}
                     <button id="collectBtn" class="btn btn-warning"><span class="glyphicon glyphicon-star" id="collect"> </span>已收藏</button>
                     {%else%}
                     <button id="collectBtn" class="btn btn-warning"><span class="glyphicon glyphicon-star-empty" id="collect_e"> </span>收藏</button>
@@ -127,7 +128,7 @@
                     <br>
                     <span class="glyphicon glyphicon-calendar" id="publishTime"> </span>&nbsp;{{duan.publishTime}}
                 </div>
-
+				
                 <div class="col-md-10 ">
                     <p>{{duan.content|safe}}</p>
                     

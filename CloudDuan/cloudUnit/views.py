@@ -15,17 +15,17 @@ def index(request):
                                              'rankList':Duan.objects.order_by('-up')[0:8]})
 
 def hotList(request):
-    return render_to_response('list.html', {'user': request.user,
+    return render_to_response('hotList.html', {'user': request.user,
                                              'duanList':Duan.objects.order_by('-viewCount')
                                              }, context_instance=RequestContext(request))
 
 def newestList(request):
-    return render_to_response('list.html', {'user': request.user,
+    return render_to_response('newest.html', {'user': request.user,
                                              'duanList':Duan.objects.all(),
                                              }, context_instance=RequestContext(request))
 
 def rankList(request):
-    return render_to_response('list.html', {'user': request.user,
+    return render_to_response('rankList.html', {'user': request.user,
                                              'duanList':Duan.objects.order_by('-up')
                                             }, context_instance=RequestContext(request))
 
@@ -35,9 +35,16 @@ def hotView(request, duanID):
     for i, d in enumerate(duanList):
         if d.id == int(duanID):
             startPage = i + 1
-    duan = duanList[startPage - 1]
+    page = request.GET.get('page')
+    if page:
+        page = int(page)
+        num = page - 1
+    else:
+        num = startPage - 1
+    duan = duanList[num]
     duan.viewCount += 1
     duan.save()
+    print('@@@@@@@')
     if request.user.is_authenticated():
         history = DuanHistory()
         history.duan = duan
@@ -55,7 +62,13 @@ def newestView(request, duanID):
     for i,d in enumerate(duanList):
         if d.id == int(duanID):
             startPage = i + 1
-    duan = duanList[startPage - 1]
+    page = request.GET.get('page')
+    if page:
+        page = int(page)
+        num = page - 1
+    else:
+        num = startPage - 1
+    duan = duanList[num]
     duan.viewCount += 1
     duan.save()
     if request.user.is_authenticated():
@@ -75,7 +88,13 @@ def rankView(request, duanID):
     for i, d in enumerate(duanList):
         if d.id == int(duanID):
             startPage = i + 1
-    duan = duanList[startPage - 1]
+    page = request.GET.get('page')
+    if page:
+        page = int(page)
+        num = page - 1
+    else:
+        num = startPage - 1
+    duan = duanList[num]
     duan.viewCount += 1
     duan.save()
     if request.user.is_authenticated():

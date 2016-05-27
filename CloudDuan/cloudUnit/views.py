@@ -268,20 +268,52 @@ def entry_index(request, template='pagination.html'):
 def getDict():
     critics = {}
     for u in CdUser.objects.all():
-        critics[u.id] = {}
+        critics[u] = {}
         for d in u.collect.all():
-            critics[u.id][d.id] = 4
+            critics[u][d] = 4
         for d in u.like.all():
-            if d.id in critics[u.id]:
-                critics[u.id][d.id] += 2
+            if d in critics[u]:
+                critics[u][d] += 2
             else:
-                critics[u.id][d.id] = 2
+                critics[u][d] = 2
         for d in u.dislike.all():
-            if d.id not in critics[u.id]:
-                critics[u.id][d.id] = 0
+            if d not in critics[u]:
+                critics[u][d] = 0
     return critics
 
 def getRecommendation(user):
     prefDict = getDict()
     itemsim = recommendations.calculateSimilarItems(prefDict)
     return recommendations.getRecommendedItems(prefDict, itemsim, user)
+
+@login_required
+def wanderView(request):
+    cduser = request.user.cduser
+    duanList = []
+    upList = Duan.objects.order_by('-up')
+    simList = getRecommendation(cduser)
+    for s in simList:
+        duanList.append(s[0])
+    for s in upList:
+        if s not in duanList:
+            duanList.append(s)
+    page = request.GET.get('page')
+    if page:
+        page = int(page)
+        num = page - 1
+    else:
+        num = 0
+    duan = duanList[num]
+    duan.viewCount += 1
+    duan.save()
+    print('@@@@@@@')
+    if request.user.is_authenticated():
+        history = DuanHistory()
+        history.duan = duan
+        history.owner = request.user.cduser
+        history.save()
+        print('!!!!!!!!!!!!')
+    return render_to_response('pagination.html', {'user': request.user,
+                                                'duanList': duanList,
+                                                'startPage': 0,
+                                             }, context_instance=RequestContext(request))

@@ -6,6 +6,7 @@ from .models import Duan, Comment, DuanHistory, DuanMessage
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from bs4 import BeautifulSoup
+from cloudUnit import recommendations
 # Create your views here.
 
 def index(request):
@@ -200,3 +201,8 @@ def getDict():
             if d.id not in critics[u.id]:
                 critics[u.id][d.id] = 0
     return critics
+
+def getRecommendation(user):
+    prefDict = getDict()
+    itemsim = recommendations.calculateSimilarItems(prefDict)
+    return recommendations.getRecommendedItems(prefDict, itemsim, user)

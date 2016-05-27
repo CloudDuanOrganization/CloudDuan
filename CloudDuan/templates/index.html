@@ -14,6 +14,7 @@
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
     <link href="/static/css/index.css" rel="stylesheet">
+    <link href="/static/css/cdstyle.css" rel="stylesheet">
     <title>云段</title>
 </head>
 
@@ -93,7 +94,7 @@
     <!-- container -->
     {% block page-content %}
     <div class="container">
-        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/hotList/"><img src="static/images/icon－热门推荐.png">&nbsp;热门推荐</a></h3>
+        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/hotList/"><img src="/static/images/icon－热门推荐.png">&nbsp;热门推荐</a></h3>
         <div class="row placeholders">
             {%for d in hotList%}
             <div class="col-xs-6 col-sm-3 placeholder">
@@ -107,7 +108,7 @@
             </div>
             {%endfor%}
         </div>
-        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/newestList/"><img src="static/images/icon－新鲜段子.png"> &nbsp;新鲜段子</a></h3>
+        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/newestList/"><img src="/static/images/icon－新鲜段子.png"> &nbsp;新鲜段子</a></h3>
         <div class="row placeholders">
             {%for d in newestList%}
             <div class="col-xs-6 col-sm-3 placeholder">
@@ -119,7 +120,41 @@
             </div>
             {%endfor%}
         </div>
-        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/rankList/"><img src="static/images/icon－排行榜.png"> &nbsp;排行榜</a></h3>
+        <h3 class="page-header"><a class="duanlink" href="/cloudUnit/rankList/"><img src="/static/images/icon－排行榜.png"> &nbsp;排行榜</a></h3>
+        <div class="row">
+        {%if rankList%} {% for entry in rankList %}
+            <!-- <div class="col-md-1">
+                
+                <p>1</p>
+            </div> -->
+            <div class="col-md-1">
+                {%if entry.hasCover%}
+                <img class="midleportrait" src="{{entry.image}}"> {%else%}
+                <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
+                <p>{{entry.owner}}</p>
+            </div>
+
+            <div class="col-md-11">
+            <h4><a class="duanlink" href="{% url 'duanView' entry.id %}">{{ entry.title }}</a></h4>
+                <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
+                <p><span class="glyphicon glyphicon-tag"></span>
+                    <span class="label label-primary">Tag1</span>
+                    <span class="label label-success">Tag2</span>
+                    <span class="label label-info">Tag3</span>
+                    <span class="label label-warning">Tag4</span>
+                    <span class="label label-danger">Tag5</span>
+                    <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ entry.publishTime }}</span>
+                </p>
+                <hr>
+            </div>
+            {% endfor %} {%endif%}
+        </div>
+
+
+
+
+
+
         <!-- top rocket -->
         <div class="actGotop">
             <a href="javascript:;" title="Top"></a>

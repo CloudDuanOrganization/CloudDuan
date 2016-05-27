@@ -14,11 +14,11 @@
     <link href="/static/css/summernote.css" rel="stylesheet">
     <link href="/static/css/fileinput.min.css" rel="stylesheet">
     <link href="/static/css/cdstyle.css" rel="stylesheet">
-    <title>消息中心</title>
+    <title>漫步云段</title>
 </head>
 
 <body>
-{% load el_pagination_tags %}
+    {% load el_pagination_tags %}
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -45,16 +45,16 @@
                             <span class="MyCloudDuan">我的云段</span>
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">漫步云端</a></li>
+                        <ul class="dropdown-menu active">
+                            <li><a href="/cloudUnit/duanList/">漫步云端</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/userUnit/userCollection/">段子单</a></li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/userUnit/userMessageCenter/">
                             <img class="message" src="/static/images/icon－消息中心.png">
-                            <span>消息中心</span>
+                            <span>消息中心</span><span class="badge">99+</span>
                         </a>
                     </li>
                     <li>
@@ -92,27 +92,46 @@
         </div>
     </nav>
     <div class="container center-container-hx">
-        <h3><a class="duanlink" href="#"><span class="glyphicon glyphicon-bell" style="color:#aaaaaa;"> </span>&nbsp;通知消息</a></h3>{%if messageList%}{% paginate messageList %}
-        <hr> {% for i in messageList %}
-        <p>
-        	用户&nbsp;<img class="miniportrait" src="{{i.fromUser.portrait.url}}">{{ i.fromUser }}用户&nbsp;{{ i.content }}&nbsp;你的&nbsp;<a href="/cloudUnit/duanView/{{i.duan.id}}/">{{i.duan.title}}</a> <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ i.time }}</span>
-        </p>
-        <hr> {% endfor %}{%endif%}
+        <div class="row">
+            <div class="col-md-12">
+                <h3><a class="duanlink" href="#" id="listTitle"></a></h3>
+                <hr>
+            </div>
+            {%if duanList%} {% paginate duanList %} {% for entry in duanList %}
+            <div class="col-md-1">
+                {%if entry.hasCover%}
+                <img class="midleportrait" src="{{entry.image}}"> {%else%}
+                <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
+                <p>{{entry.owner}}</p>
+            </div>
+            <div class="col-md-11">
+            <h4><a class="duanlink" id="listLink" href="{% url 'hotView' entry.id %}">{{ entry.title }}</a></h4>
+                <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
+                <p><span class="glyphicon glyphicon-tag"></span>
+                    <span class="label label-primary">Tag1</span>
+                    <span class="label label-success">Tag2</span>
+                    <span class="label label-info">Tag3</span>
+                    <span class="label label-warning">Tag4</span>
+                    <span class="label label-danger">Tag5</span>
+                    <span style="float:right;"><span class="glyphicon glyphicon-thumbs-down "> </span>&nbsp;踩({{ entry.down }})</span>
+                    <span style="float:right;"><span class="glyphicon glyphicon-thumbs-up " > </span>&nbsp;赞({{ entry.up }})</span>
+                </p>
+                <hr>
+            </div>
+            {% endfor %} {%endif%}
+        </div>
     </div>
-    {%if messageList%}
-    {% get_pages %}
+    {%if duanList%} {% get_pages %}
     <nav style="text-align:center;">
-            <ul class="pagination pagination-lg" >
-
-                <li >{{ pages.previous }}</li>
-                {% for page in pages %}
-                <li> {{ page }}</li>
-                {% endfor %}
-                <li >{{ pages.next }}</li>
-
-            </ul>
-        </nav>
-         {%endif%}
+        <ul class="pagination pagination-lg">
+            <li>{{ pages.previous }}</li>
+            {% for page in pages %}
+            <li> {{ page }}</li>
+            {% endfor %}
+            <li>{{ pages.next }}</li>
+        </ul>
+    </nav>
+    {%endif%}
     <!-- publish Modal -->
     <div class="modal fade container" id="publish" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -148,5 +167,5 @@
 <script type="text/javascript" src="/static/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/static/js/summernote.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
-
+<script type="text/javascript" src="/static/js/list.js"></script>
 </html>

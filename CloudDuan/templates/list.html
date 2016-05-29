@@ -46,7 +46,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu active">
-                            <li><a href="/cloudUnit/duanList/">漫步云端</a></li>
+                            <li><a href="/cloudUnit/wanderView/">漫步云端</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/userUnit/userCollection/">段子单</a></li>
                         </ul>
@@ -106,9 +106,9 @@
             </div>
             <div style="display:none;" ><input value="{{entry.id}}" id="duanID" type="textarea" ></div>
             <div class="col-md-11">
-            <h4 id="hotTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'hotView' entry.id %}">{{ entry.title }}</a></h4>
-            <h4 id="newestTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'newestView' entry.id %}">{{ entry.title }}</a></h4>
-            <h4 id="rankTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
+            <h4 class="hotTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'hotView' entry.id %}">{{ entry.title }}</a></h4>
+            <h4 class="newestTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'newestView' entry.id %}">{{ entry.title }}</a></h4>
+            <h4 class="rankTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
                 <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     <span class="label label-primary">Tag1</span>

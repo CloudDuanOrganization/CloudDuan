@@ -46,7 +46,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">漫步云端</a></li>
+                            <li><a href="/cloudUnit/wanderView/">漫步云端</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/userUnit/userCollection/">段子单</a></li>
                         </ul>
@@ -98,11 +98,11 @@
         <div class="row placeholders">
             {%for d in hotList%}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <a href="{% url 'duanView' d.id %}">
+                <a href="{% url 'hotView' d.id %}">
                 {%if d.hasCover %}
                 <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%else%}
                 <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}</a>
-                <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
+                <h4><a class="duanlink" href="{% url 'hotView' d.id %}">{{d.title}}</a></h4>
                 <span class="text-muted">{{d.owner}}</span>
                 <br>
             </div>
@@ -112,10 +112,11 @@
         <div class="row placeholders">
             {%for d in newestList%}
             <div class="col-xs-6 col-sm-3 placeholder">
+                <a href="{% url 'newestView' d.id %}">
                 {%if d.hasCover %}
                 <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%else%}
-                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}
-                <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{d.title}}</a></h4>
+                <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}</a>
+                <h4><a class="duanlink" href="{% url 'newestView' d.id %}">{{d.title}}</a></h4>
                 <span class="text-muted">{{d.owner}}</span>
             </div>
             {%endfor%}
@@ -128,14 +129,15 @@
                 <p>1</p>
             </div> -->
             <div class="col-md-1">
+            <a href="{% url 'rankView' entry.id %}">
                 {%if entry.hasCover%}
                 <img class="midleportrait" src="{{entry.image}}"> {%else%}
-                <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
+                <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}</a>
                 <p>{{entry.owner}}</p>
             </div>
 
             <div class="col-md-11">
-            <h4><a class="duanlink" href="{% url 'duanView' entry.id %}">{{ entry.title }}</a></h4>
+            <h4><a class="duanlink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
                 <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     <span class="label label-primary">Tag1</span>

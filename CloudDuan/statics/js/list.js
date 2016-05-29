@@ -8,15 +8,15 @@ $(document).ready(function(){
 
     if (listType === 'hotList'){
     	$("#listTitle").html("<img src=\"/static/images/icon－热门推荐.png\">&nbsp;热门推荐</a>");
-
+    	$(".hotTitle").show()
     }
     if (listType === 'newestList'){
     	$("#listTitle").html("<img src=\"/static/images/icon－新鲜段子.png\"> &nbsp;新鲜段子</a>")
-
+    	$(".newestTitle").show()
     }
     if (listType === 'rankList'){
     	$("#listTitle").html("<img src=\"/static/images/icon－排行榜.png\"> &nbsp;排行榜</a>")
-
+    	$(".rankTitle").show()
     }
 });
 

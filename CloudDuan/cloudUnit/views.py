@@ -11,27 +11,27 @@ from cloudUnit import recommendations
 
 def index(request):
     return render_to_response('index.html', {'user': request.user,
-                                             'hotList':Duan.objects.order_by('-viewCount')[0:8],
-                                             'newestList':Duan.objects.all()[0:8],
-                                             'rankList':Duan.objects.order_by('-up')[0:8]})
+                                             'hotList':Duan.objects.order_by('-viewCount', '-id')[0:8],
+                                             'newestList':Duan.objects.all().order_by('-id')[0:8],
+                                             'rankList':Duan.objects.order_by('-up', '-id')[0:8]})
 
 def hotList(request):
     return render_to_response('hotList.html', {'user': request.user,
-                                             'duanList':Duan.objects.order_by('-viewCount')
+                                             'duanList':Duan.objects.order_by('-viewCount', '-id')
                                              }, context_instance=RequestContext(request))
 
 def newestList(request):
     return render_to_response('newest.html', {'user': request.user,
-                                             'duanList':Duan.objects.all(),
+                                             'duanList':Duan.objects.all().order_by('-id'),
                                              }, context_instance=RequestContext(request))
 
 def rankList(request):
     return render_to_response('rankList.html', {'user': request.user,
-                                             'duanList':Duan.objects.order_by('-up')
+                                             'duanList':Duan.objects.order_by('-up', '-id')
                                             }, context_instance=RequestContext(request))
 
 def hotView(request, duanID):
-    duanList = Duan.objects.order_by('-viewCount')
+    duanList = Duan.objects.order_by('-viewCount', '-id')
     startPage = 1
     for i, d in enumerate(duanList):
         if d.id == int(duanID):
@@ -58,7 +58,7 @@ def hotView(request, duanID):
                                              }, context_instance=RequestContext(request))
 
 def newestView(request, duanID):
-    duanList = Duan.objects.all()
+    duanList = Duan.objects.all().order_by('-id')
     startPage = 1
     for i,d in enumerate(duanList):
         if d.id == int(duanID):
@@ -84,7 +84,7 @@ def newestView(request, duanID):
                                              }, context_instance=RequestContext(request))
 
 def rankView(request, duanID):
-    duanList = Duan.objects.order_by('-up')
+    duanList = Duan.objects.order_by('-up', '-id')
     startPage = 1
     for i, d in enumerate(duanList):
         if d.id == int(duanID):

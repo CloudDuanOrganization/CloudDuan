@@ -2,11 +2,12 @@ from django.shortcuts import render,HttpResponse,render_to_response
 from django.http import JsonResponse
 from django.http import HttpResponseNotFound
 from userUnit.models import CdUser
-from .models import Duan, Comment, DuanHistory, DuanMessage
+from .models import Duan, Comment, DuanHistory, DuanMessage, DuanLabel
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from bs4 import BeautifulSoup
 from cloudUnit import recommendations
+from random import randint
 # Create your views here.
 
 def index(request):
@@ -169,6 +170,7 @@ def duanView(request, duanID):
             hasDown = (duan in cduser.dislike.all())
         return render_to_response('content.html', {'duan': duan, 'user': request.user,
                                                    'duanComment':duan.comment.all(),
+                                                   'duanLabel':duan.label.all(),
                                                    'hasUp':hasUp,
                                                    'hasDown':hasDown,
                                                    'hasCollect':hasCollect})
@@ -317,3 +319,19 @@ def wanderView(request):
                                                 'duanList': duanList,
                                                 'startPage': 0,
                                              }, context_instance=RequestContext(request))
+
+def addDuanLabel(request):
+    if request.method == 'POST':
+        duanID = int(request.POST.get('duanID'))
+        try:
+            duan = Duan.objects.get(id__exact=duanID)
+            label = DuanLabel()
+            label.text = request.POST.get('text')
+            if not label.text:
+                return JsonResponse({'label_err': '标签内容不得为空', 'label_flag': 0})
+            label.ofDuan = duan
+            label.colour = randint(1,5)
+            label.save()
+            return JsonResponse({'label_err': '添加成功', 'label_flag': 1})
+        except:
+            return JsonResponse({'label_err': '段子不存在', 'label_flag': 0})

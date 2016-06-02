@@ -45,6 +45,7 @@ class Comment(models.Model):
 class DuanLabel(models.Model):
     text = models.TextField(max_length=10, null=False)
     ofDuan = models.ForeignKey(Duan,related_name="label",null=False)
+    colour = models.IntegerField(null=False,default=0)
 
     def __str__(self):
         return self.text

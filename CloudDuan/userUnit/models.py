@@ -10,6 +10,7 @@ def userDirectoryPath(instance, filename):
 class CdUser(models.Model):
     user = models.OneToOneField(User)
     signature = models.CharField(max_length=200, null=True)
+    newsCount = models.IntegerField(null=False,default=0)
     portrait = models.ImageField(upload_to=userDirectoryPath,default='User/defaultImage/1.jpg')
 
     def __str__(self):

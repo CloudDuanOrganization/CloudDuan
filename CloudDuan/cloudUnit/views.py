@@ -182,8 +182,10 @@ def createDuanMessage(duan, fromUser, toUser, content):
     mess.duan = duan
     mess.fromUser = fromUser
     mess.toUser = toUser
+    toUser.newsCount += 1
     mess.content = content
     mess.save()
+    toUser.save()
     print('_(:з」∠)__(:з」∠)__(:з」∠)__(:з」∠)_')
 
 @login_required

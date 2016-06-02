@@ -128,4 +128,10 @@ def userCollection(request):
 @login_required
 def userMessageCenter(request):
     cduser = request.user.cduser
+    messageList = cduser.toUser.all()
+    for i in messageList:
+        if i.isNew:
+            i.isNew = False
+    cduser.newsCount = 0
+    cduser.save()
     return render_to_response('message.html', {'messageList':cduser.toUser.all()}, context_instance=RequestContext(request))

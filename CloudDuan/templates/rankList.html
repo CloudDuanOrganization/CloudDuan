@@ -109,8 +109,8 @@
                 <p>{{entry.owner}}</p>
             </div>
             <div class="col-md-11">
-            <h4><a class="duanlink" id="listLink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
-                <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
+            <h4 class="content"><a class="duanlink" id="listLink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
+                <p class="content"> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     
                     {% for l in entry.label.all%}

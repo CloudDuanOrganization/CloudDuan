@@ -113,7 +113,7 @@
             <h4 class="hotTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'hotView' entry.id %}">{{ entry.title }}</a></h4>
             <h4 class="newestTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'newestView' entry.id %}">{{ entry.title }}</a></h4>
             <h4 class="rankTitle" style="display:none;"><a class="duanlink" id="listLink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
-                <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
+                <p > <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     {% for l in duanLabel%}
                     {%if l.colour == 1 %}

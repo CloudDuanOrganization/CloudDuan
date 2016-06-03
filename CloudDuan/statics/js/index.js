@@ -52,10 +52,11 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(data) {
-                window.location.href="/cloudUnit/duanView/"+data.duan_id
+                window.location.href="/cloudUnit/duanView/"+data.duan_id;
             },
             error: function(jqXHR) {
-                alert("发生错误：" + jqXHR.status);
+                alert("请登录");
+                window.location.href="/userUnit/userLogin/";
             },
         });
     });

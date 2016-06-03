@@ -108,7 +108,7 @@
             </div>
             <div class="col-md-11">
                 <h4><a class="duanlink" href="{% url 'duanView' i.id %}">{{ i.title }}</a></h4>
-                <p> <small class="text-muted">{{ i.pureContent }}</small></p>
+                <p class="content"> <small class="text-muted">{{ i.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
                     {% for l in i.label.all%}
                     {%if l.colour == 1 %}

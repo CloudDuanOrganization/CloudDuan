@@ -331,6 +331,12 @@ def addDuanLabel(request):
             label.text = request.POST.get('text')
             if not label.text:
                 return JsonResponse({'label_err': '标签内容不得为空', 'label_flag': 0})
+            print('+++++++++', len(label.text))
+            if len(label.text) > 20:
+                return JsonResponse({'label_err': '标签内容过长', 'label_flag': 0})
+            for l in duan.label.all():
+                if l.text == label.text:
+                    return JsonResponse({'label_err': '标签已存在', 'label_flag': 0})
             label.ofDuan = duan
             label.colour = randint(1,5)
             label.save()

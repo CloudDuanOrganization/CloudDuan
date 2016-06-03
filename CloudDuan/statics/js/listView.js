@@ -140,5 +140,35 @@ $("#collectBtn").click(function() {
     });
 });
 
+$("#tagBtn").click(function() {
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
+    var subUrl = arrUrl[1].split("/");
+    var duanID = $("#duanID").val();
+    var duanType = subUrl[2];
+    $.ajax({
+        url: '/cloudUnit/addDuanLabel/',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            duanID: duanID,
+            text:$("#inputTags").val(),
+        },
+        success: function(data) {
+            if (data.label_flag === 1) {
+                alert(data.label_err);
+                location.reload()
+            }
+            else{
+                alert(data.label_err);
+                location.reload()
+            }
+        },
+        error: function(jqXHR) {
+            alert("请登录")
+            window.location.href='/userUnit/userLogin/?next=/cloudUnit/'+duanType+'/'+duanID+'/';
+        },
+    });
+});
 
 

@@ -33,11 +33,41 @@ a.duabLink:active {
 }
 
 li.right {
-    position: fixed ; right:35px;
+    position: fixed;
+    right: 35px;
     top: 400px;
 }
 
 li.left {
-    position: fixed ; left:35px;
+    position: fixed;
+    left: 35px;
     top: 400px;
 }
+
+h4.content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    }
+
+a.content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    
+}
+
+small.content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+   }
+p.content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+   }

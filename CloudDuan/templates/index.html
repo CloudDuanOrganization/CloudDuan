@@ -54,7 +54,11 @@
                     <li>
                         <a href="/userUnit/userMessageCenter/">
                             <img class="message" src="/static/images/icon－消息中心.png">
-                            <span>消息中心</span><span class="badge">99+</span>
+                            {% if user.cduser.newsCount %}
+                            <span>消息中心</span><span class="badge">{{user.cduser.newsCount}}</span>
+                            {% else %}
+                            <span>消息中心</span>
+                            {%endif%}
                         </a>
                     </li>
                     <li>
@@ -102,7 +106,7 @@
                 {%if d.hasCover %}
                 <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%else%}
                 <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}</a>
-                <h4><a class="duanlink" href="{% url 'hotView' d.id %}">{{d.title}}</a></h4>
+                <h4 class="content"><a class="duanlink" href="{% url 'hotView' d.id %}">{{d.title}}</a></h4>
                 <span class="text-muted">{{d.owner}}</span>
                 <br>
             </div>
@@ -116,7 +120,7 @@
                 {%if d.hasCover %}
                 <img src="{{d.image}}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%else%}
                 <img src="/uploadFiles/Duan/defaultCover/7.png" class="img-responsive img-rounded" alt="Generic placeholder thumbnail" style="width:263px;height:263px;"> {%endif%}</a>
-                <h4><a class="duanlink" href="{% url 'newestView' d.id %}">{{d.title}}</a></h4>
+                <h4 class="content"><a class="duanlink" href="{% url 'newestView' d.id %}">{{d.title}}</a></h4>
                 <span class="text-muted">{{d.owner}}</span>
             </div>
             {%endfor%}
@@ -137,14 +141,22 @@
             </div>
 
             <div class="col-md-11">
-            <h4><a class="duanlink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
-                <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
+            <h4 class="content"><a class="duanlink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
+                <p class="content"> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
-                    <span class="label label-primary">Tag1</span>
-                    <span class="label label-success">Tag2</span>
-                    <span class="label label-info">Tag3</span>
-                    <span class="label label-warning">Tag4</span>
-                    <span class="label label-danger">Tag5</span>
+                    {% for l in entry.label.all%}
+                    {%if l.colour == 1 %}
+                    <span class="label label-primary">{{l.text}}</span>
+                    {%elif l.colour == 2 %}
+                    <span class="label label-success">{{l.text}}</span>
+                    {%elif l.colour == 3 %}
+                    <span class="label label-info">{{l.text}}</span>
+                    {%elif l.colour == 4 %}
+                    <span class="label label-warning">{{l.text}}</span>
+                    {%elif l.colour == 5 %}
+                    <span class="label label-danger">{{l.text}}</span>
+                    {%endif%}
+                    {%endfor%}
                     <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ entry.publishTime }}</span>
                 </p>
                 <hr>

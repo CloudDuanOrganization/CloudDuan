@@ -113,61 +113,50 @@ def rankView(request, duanID):
 @login_required
 def duanPublish(request):
     if request.method == 'POST':
-        # print(request.body)
-        # print(str(request.body))
-        # print(request.POST.get('title'))
-        # print(request.POST.get('content'))
-        # print('###########')
-        # print(len(request.POST.get('title')))
+        # 判断标题长度是否合格
         if len(request.POST.get('title')) > 50:
             return JsonResponse({'publish_err':u'标题过长','publish_flag':0})
+        # 创建段子，并保存到数据库
         newDuan = Duan()
         newDuan.title = request.POST.get('title')
         newDuan.content = request.POST.get('content')
+        # 使用BeautifulSoup将新发布的段子的内容中的纯文本提取出来
         soup = BeautifulSoup(newDuan.content)
-        print('$$$$$$$$$$$$$$$')
         pure = ''
         for i in soup.strings:
-            print('*************',i,type(i))
             if i is not None:
                 pure += i
-                print('@@@@@@@@@@@@@@',i)
         newDuan.pureContent = pure
-        print(pure)
         newDuan.owner = request.user.cduser
-        # newDuan.image = request.FILES['cover']
         newDuan.image = request.POST.get('cover')
+        # 判断是否有封面
         if newDuan.image:
             newDuan.hasCover = True
+        # 保存到数据库
         newDuan.save()
         return JsonResponse({'publish_err':u'发布成功','publish_flag':1, 'duan_id': newDuan.id})
 
-        # imageList = request.FILES.getlist('multipleFileUpload')
-        # for i in imageList:
-        #     print(i.name)
-        # return HttpResponse(request.POST['content'])
-        #  return HttpResponse()
 
 def duanView(request, duanID):
-    # duanID = request.GET.get('duanID')
-    duan = Duan.objects.filter(id__exact=int(duanID))
-    if duan:
+    # duanID为要查看的段子的id
+    duan = Duan.objects.filter(id__exact=int(duanID)) # 在数据库中查询段子
+    if duan: # 如果存在
         duan = duan[0]
-        duan.viewCount += 1
+        duan.viewCount += 1 # 段子的浏览次数加一
         duan.save()
         hasCollect = True
         hasUp = True
         hasDown = True
-        if request.user.is_authenticated():
+        if request.user.is_authenticated(): # 如果用户已登陆
             cduser = request.user.cduser
-            history = DuanHistory()
+            history = DuanHistory() # 更新用户浏览记录
             history.duan = duan
             history.owner = request.user.cduser
             history.save()
-            print('!!!!!!!!!!!!')
-            hasCollect = (duan in cduser.collect.all())
-            hasUp = (duan in cduser.like.all())
-            hasDown = (duan in cduser.dislike.all())
+            hasCollect = (duan in cduser.collect.all()) # 判断用户是否收藏该段子
+            hasUp = (duan in cduser.like.all()) # 判断用户是否点赞该段子
+            hasDown = (duan in cduser.dislike.all()) # 判断用户是否踩该段子
+        # 将数据渲染到前端页面
         return render_to_response('content.html', {'duan': duan, 'user': request.user,
                                                    'duanComment':duan.comment.all(),
                                                    'duanLabel':duan.label.all(),
@@ -175,6 +164,7 @@ def duanView(request, duanID):
                                                    'hasDown':hasDown,
                                                    'hasCollect':hasCollect})
     else:
+        # 如果段子id不存在，返回页面没找到
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
 def createDuanMessage(duan, fromUser, toUser, content):
@@ -291,17 +281,17 @@ def getRecommendation(user):
     return recommendations.getRecommendedItems(prefDict, itemsim, user)
 
 @login_required
-def wanderView(request):
+def wanderView(request): # 漫步云端功能，可以根据用户的记录给用户推荐适合用户口味的段子。
     cduser = request.user.cduser
     duanList = []
     upList = Duan.objects.order_by('-up')
-    simList = getRecommendation(cduser)
+    simList = getRecommendation(cduser) # 获得段子推荐列表，具体算法见recommendations模块
     for s in simList:
         duanList.append(s[0])
     for s in upList:
         if s not in duanList:
             duanList.append(s)
-    page = request.GET.get('page')
+    page = request.GET.get('page') # 获取漫步云端时的当前页
     if page:
         page = int(page)
         num = page - 1
@@ -310,13 +300,12 @@ def wanderView(request):
     duan = duanList[num]
     duan.viewCount += 1
     duan.save()
-    print('@@@@@@@')
     if request.user.is_authenticated():
         history = DuanHistory()
         history.duan = duan
         history.owner = request.user.cduser
         history.save()
-        print('!!!!!!!!!!!!')
+    # 将段子进行单页分页渲染，呈现给用户
     return render_to_response('pagination.html', {'user': request.user,
                                                 'duanList': duanList,
                                                 'startPage': 0,

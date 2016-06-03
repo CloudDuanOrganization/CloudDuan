@@ -3,6 +3,7 @@ __author__ = 'wangzhuo'
 from math import sqrt
 from collections import defaultdict
 
+# 采用向量距离的方式判断两个人的相似度
 def sim_distance(prefs,person1,person2):
     si = []
     for item in prefs[person1]:
@@ -13,7 +14,7 @@ def sim_distance(prefs,person1,person2):
     # print (si)
     return 1 / (1 + sqrt(sum(si)))
 
-
+# 采用pearson相似度判断两个人的相似度
 def sim_pearson(prefs,personx,persony):
     n = 0
     sumx = sumy = sumSqx = sumSqy = sumP =0
@@ -84,7 +85,8 @@ def calculateSimilarItems(prefs,n=10):
         # print('###########')
     return result
 
-
+# 使用用户之间的相似度作为加权平均系数，然后给想要得到推荐的用户没看过
+# 的但其他用户已浏览过的段子进行打分，分高的段子则是适合该用户的，将会率先推荐给用户
 def getRecommendedItems(prefs,itemMatch,user):
     userRatings = prefs[user]
     totalSim = defaultdict(lambda :0)

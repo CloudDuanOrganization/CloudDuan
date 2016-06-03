@@ -54,7 +54,11 @@
                     <li class="active">
                         <a href="/userUnit/userMessageCenter/">
                             <img class="message" src="/static/images/icon－消息中心.png">
+                            {% if user.cduser.newsCount %}
+                            <span>消息中心</span><span class="badge">{{user.cduser.newsCount}}</span>
+                            {% else %}
                             <span>消息中心</span>
+                            {%endif%}
                         </a>
                     </li>
                     <li>

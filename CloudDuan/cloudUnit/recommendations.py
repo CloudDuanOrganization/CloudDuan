@@ -44,8 +44,9 @@ def topMatches(prefs,person,n=5,similarity=sim_pearson):
 
 
 def getRecommendations(prefs,person,similarity=sim_pearson):
+    print(prefs)
     totals = defaultdict(lambda : 0)
-    simSums = defaultdict(lambda : 0)
+    simSums = defaultdict(lambda : 0.0000000001)
     for other in prefs:
         if other == person:
             continue

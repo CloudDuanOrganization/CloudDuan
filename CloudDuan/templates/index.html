@@ -144,11 +144,19 @@
             <h4><a class="duanlink" href="{% url 'rankView' entry.id %}">{{ entry.title }}</a></h4>
                 <p> <small class="text-muted">{{ entry.pureContent }}</small></p>
                 <p><span class="glyphicon glyphicon-tag"></span>
-                    <span class="label label-primary">Tag1</span>
-                    <span class="label label-success">Tag2</span>
-                    <span class="label label-info">Tag3</span>
-                    <span class="label label-warning">Tag4</span>
-                    <span class="label label-danger">Tag5</span>
+                    {% for l in entry.label.all%}
+                    {%if l.colour == 1 %}
+                    <span class="label label-primary">{{l.text}}</span>
+                    {%elif l.colour == 2 %}
+                    <span class="label label-success">{{l.text}}</span>
+                    {%elif l.colour == 3 %}
+                    <span class="label label-info">{{l.text}}</span>
+                    {%elif l.colour == 4 %}
+                    <span class="label label-warning">{{l.text}}</span>
+                    {%elif l.colour == 5 %}
+                    <span class="label label-danger">{{l.text}}</span>
+                    {%endif%}
+                    {%endfor%}
                     <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ entry.publishTime }}</span>
                 </p>
                 <hr>

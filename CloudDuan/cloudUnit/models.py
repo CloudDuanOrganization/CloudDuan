@@ -4,39 +4,36 @@ from CloudDuan.settings import MEDIA_ROOT
 import os, base64
 # Create your models here.
 
-# def duanDirectoryPath(instance, filename):
-#     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-#     print(instance.title,instance,instance.numb)
-#     return 'uploadFiles/Duan/duan_{0}/{1}'.format(instance.numb, filename)
 
-
+# 段子模型
 class Duan(models.Model):
-    title = models.CharField(max_length=50, null=True)
-    content = models.TextField(null=False)
-    pureContent = models.TextField(null=True)
-    publishTime = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(CdUser, related_name='duanOwner',null=False)
-    up = models.IntegerField(default=0)
-    down = models.IntegerField(default=0)
-    hasCover = models.BooleanField(null=False, default=False)
-    image = models.TextField(null=True)
-    liker = models.ManyToManyField(CdUser, related_name='like')
-    disliker = models.ManyToManyField(CdUser, related_name='dislike')
-    collector = models.ManyToManyField(CdUser, related_name='collect')
-    viewCount = models.IntegerField(default=0)
+    title = models.CharField(max_length=50, null=True) # 标题
+    content = models.TextField(null=False) # 内容
+    pureContent = models.TextField(null=True) # 内容的纯文本
+    publishTime = models.DateTimeField(auto_now_add=True) # 发布时间
+    owner = models.ForeignKey(CdUser, related_name='duanOwner',null=False) # 发布人
+    up = models.IntegerField(default=0) # 点赞数
+    down = models.IntegerField(default=0) # 踩数
+    hasCover = models.BooleanField(null=False, default=False) # 是否有封面的标识位
+    image = models.TextField(null=True) # 封面图片
+    liker = models.ManyToManyField(CdUser, related_name='like') # 记录点赞的用户，和CdUser是多对多的关系
+    disliker = models.ManyToManyField(CdUser, related_name='dislike')# 记录踩的用户，和CdUser是多对多的关系
+    collector = models.ManyToManyField(CdUser, related_name='collect')# 记录收藏的用户，和CdUser是多对多的关系
+    viewCount = models.IntegerField(default=0) # 记录浏览数
 
     def __str__(self):
         return str(self.id) + str(self.title)
 
     class Meta:
-        ordering = ['-publishTime']
+        ordering = ['-publishTime'] # 在数据库中采用时间为序存放
 
-
+# 段子评论
 class Comment(models.Model):
+    # 采用外键的方式将评论与段子联系起来，并采用CASCADE方式
     ofDuan = models.ForeignKey(Duan,related_name='comment',null=False,on_delete=models.CASCADE)
-    content = models.TextField(null=False)
-    owner = models.ForeignKey(CdUser, related_name='commentOwner',null=False)
-    publishTime = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(null=False) # 评论的内容
+    owner = models.ForeignKey(CdUser, related_name='commentOwner',null=False) # 评论人，使用外键的方式与CdUser关联
+    publishTime = models.DateTimeField(auto_now_add=True)# 评论发布时间
 
     def __str__(self):
         return str(self.ofDuan) + str(self.id)

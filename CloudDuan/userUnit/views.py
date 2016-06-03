@@ -9,20 +9,23 @@ from django.contrib.auth.decorators import login_required
 
 def userLogin(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
+        username = request.POST['username'] # 获取用户名
+        password = request.POST['password'] # 获取密码
+        user = authenticate(username=username, password=password) # 用户身份验证
+        if user is not None: # 如果用户存在
+            if user.is_active: # 如果用户激活
                 login(request, user)
-                request.session.set_expiry(0)
+                request.session.set_expiry(0) # 设置cookie的保存时间为浏览器关闭后失效
+                # 返回JSON值，代表登陆成功。由于使用了AJax，所以使用JsonResponse，下同。
                 return JsonResponse({'login_err':u'登陆成功!', 'login_flag':0})
             else:
+                # 返回JSON值，代表账号未激活
                 return JsonResponse({'login_err':u'账号未激活!', 'login_flag':1})
         else:
+            # 返回JSON值，代表登陆失败
             return JsonResponse({'login_err':u'登陆失败!', 'login_flag':2})
-    nextUrl = request.GET.get('next', '')
-    print('---->', nextUrl)
+    nextUrl = request.GET.get('next', '') # nextUrl指明了登陆成功后跳转的页面
+    # 返回渲染后的前端页面
     return render_to_response('signin.html',{'next':nextUrl})
 
 def userLogout(request):
@@ -31,21 +34,27 @@ def userLogout(request):
 
 def userRegister(request):
     if request.method == 'POST':
+        # 获得POST表单的用户信息
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
         rePassword = request.POST['rePassword']
+        # 判断用户名是否合法
         if (not username) or len(username)<2 or len(username)>40:
             return JsonResponse({'register_err':u'用户名非法!','register_flag':0})
+        # 判断密码是否合法
         if (not password) or len(password)<6 or len(password)>40:
             return JsonResponse({'register_err':u'密码非法!','register_flag':0})
+        # 判断密码是否一致
         if password != rePassword:
             return JsonResponse({'register_err':u'两次密码不一致!','register_flag':0})
+        # 判断邮箱是否存在
         userList = User.objects.filter(email__exact = email)
-        if userList:
+        if userList: # 判断邮箱存在
             return JsonResponse({'register_err': u'邮箱已存在!', 'register_flag': 0})
         try:
             newUser = CdUser()
+            # 创建用户，包含用户判断
             newUser.user = User.objects.create_user(username, email, password)
             newUser.save()
             return JsonResponse({'register_err':u'用户注册成功!','register_flag':1})
@@ -53,23 +62,19 @@ def userRegister(request):
             return JsonResponse({'register_err':u'用户已存在!','register_flag':0})
     return HttpResponse('Register Page')
 
-@login_required
+
+@login_required # 使用装饰器实现用户登陆判断，如果没有登陆则跳转到登录页面，登陆成功后跳转回来。
 def uploadPortrait(request):
     if  (request.method == 'POST'):
         try:
-            print('****#####')
-            file = request.FILES.get('image')
-            print('****#####')
+            file = request.FILES.get('image') # 在POST中的FILES中获取头像图片
             user = request.user
-            print (user, file.name)
             cdUser = user.cduser
-            cdUser.portrait = file
-            cdUser.save()
-            print('*****')
+            cdUser.portrait = file # 用户更改头像
+            cdUser.save() # 保存更改到数据库
             return HttpResponseRedirect('/userUnit/userProfile/')
         except:
             return HttpResponseRedirect('/userUnit/userProfile/')
-            # return False
 
 @login_required
 def toUserProfile(request):

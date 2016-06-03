@@ -45,8 +45,8 @@ def topMatches(prefs,person,n=5,similarity=sim_pearson):
 
 def getRecommendations(prefs,person,similarity=sim_pearson):
     print(prefs)
-    totals = defaultdict(lambda : 0)
-    simSums = defaultdict(lambda : 0.0000000001)
+    totals = defaultdict(lambda : 0.00000000001)
+    simSums = defaultdict(lambda : 0.00000000001)
     for other in prefs:
         if other == person:
             continue
@@ -90,8 +90,8 @@ def calculateSimilarItems(prefs,n=10):
 # 的但其他用户已浏览过的段子进行打分，分高的段子则是适合该用户的，将会率先推荐给用户
 def getRecommendedItems(prefs,itemMatch,user):
     userRatings = prefs[user]
-    totalSim = defaultdict(lambda :0)
-    scores = defaultdict(lambda :0)
+    totalSim = defaultdict(lambda :0.00000000001)
+    scores = defaultdict(lambda :0.00000000001)
     for (item,rating) in userRatings.items():
         for (item2,similarity) in itemMatch[item]:
             if item2 not in userRatings:

@@ -44,6 +44,8 @@ def userRegister(request):
         userList = User.objects.filter(email__exact = email)
         if userList:
             return JsonResponse({'register_err': u'邮箱已存在!', 'register_flag': 0})
+        if email.find('@') == -1:
+            return JsonResponse({'register_err': u'邮箱格式错误!', 'register_flag': 0})
         try:
             newUser = CdUser()
             newUser.user = User.objects.create_user(username, email, password)

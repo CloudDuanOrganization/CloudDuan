@@ -136,7 +136,7 @@
                     <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.title }}</a></h4>
                     <p> <small class="text-muted">{{ d.pureContent }}</small></p>
                     <p><span class="glyphicon glyphicon-tag"></span>
-                        {% for l in duanLabel%}
+                     {% for l in d.label.all%}
                     {%if l.colour == 1 %}
                     <span class="label label-primary">{{l.text}}</span>
                     {%elif l.colour == 2 %}
@@ -157,16 +157,16 @@
                 {%endfor%}{%endif%}   
                 {%if duanHistory%} {% paginate duanHistory %}{%for d in duanHistory%}
                 <div class="col-md-1">
-                    <br> {%if d.hasCover%}
-                    <img class="midleportrait" src="{{d.image}}"> {%else%}
+                    <br> {%if d.duan.hasCover%}
+                    <img class="midleportrait" src="{{d.duan.image}}"> {%else%}
                     <img class="midleportrait" src="/uploadFiles/Duan/defaultCover/7.png"> {%endif%}
                    
                 </div>
                 <div class="col-md-11">
-                    <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.duan.title }}</a></h4>
+                    <h4><a class="duanlink" href="{% url 'duanView' d.duan.id %}">{{ d.duan.title }}</a></h4>
                     <p> <small class="text-muted">{{ d.duan.pureContent }}</small></p>
                     <p><span class="glyphicon glyphicon-tag"></span>
-                        {% for l in duanLabel%}
+                    {% for l in d.duan.label.all%}
                     {%if l.colour == 1 %}
                     <span class="label label-primary">{{l.text}}</span>
                     {%elif l.colour == 2 %}

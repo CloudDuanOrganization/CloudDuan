@@ -110,7 +110,7 @@
                 <div class="col-xs-6 col-md-5">
                     <span class="glyphicon glyphicon-tag"></span>
                     
-                    {% for l in duanLabel%}
+                    {% for l in duan.label.all%}
                     {%if l.colour == 1 %}
                     <span class="label label-primary">{{l.text}}</span>
                     {%elif l.colour == 2 %}

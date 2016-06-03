@@ -106,11 +106,25 @@
                 </div>
                 <div class="col-xs-6 col-md-5">
                     <span class="glyphicon glyphicon-tag"></span>
-                    <span class="label label-primary">Tag1</span>
-                    <span class="label label-success">Tag2</span>
-                    <span class="label label-info">Tag3</span>
-                    <span class="label label-warning">Tag4</span>
-                    <span class="label label-danger">Tag5</span>
+                    
+                    
+                                  
+                    {% for l in duanLabel%}
+                    {%if l.colour == 1 %}
+                    <span class="label label-primary">{{l.text}}</span>
+                    {%elif l.colour == 2 %}
+                    <span class="label label-success">{{l.text}}</span>
+                    {%elif l.colour == 3 %}
+                    <span class="label label-info">{{l.text}}</span>
+                    {%elif l.colour == 4 %}
+                    <span class="label label-warning">{{l.text}}</span>
+                    {%elif l.colour == 5 %}
+                    <span class="label label-danger">{{l.text}}</span>
+                    {%endif%}
+                    {%endfor%}
+
+
+                    <a data-toggle="modal" data-target="#tag" class="label label-info"><span class="glyphicon glyphicon-plus"> </span>添加标签</a>
                 </div>
                 <div class="col-xs-6 col-md-2">
                 </div>
@@ -174,6 +188,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
                     <button type="button" class="btn btn-primary" id="publishBtn">发布</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <div class="modal fade container" id="tag" tabindex="-1" role="dialog" aria-labelledby="tagModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="tagModal" data-toggle="modal" data-target="#cover">添加标签</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="inputTags" placeholder="标签名">
+                    <br>
+                    <label class="contorl-label">可选标签</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="tagBtn">添加</button>
                 </div>
             </div>
             <!-- /.modal-content -->

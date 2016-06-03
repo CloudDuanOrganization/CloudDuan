@@ -21,6 +21,7 @@
 <body>
     {% load el_pagination_tags %}
     <!-- Fixed navbar -->
+    <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -60,6 +61,7 @@
                             {% else %}
                             <span>消息中心</span>
                             {%endif%}
+                        </a>
                     </li>
                     <li>
                         <a href="#" data-toggle="modal" data-target="#publish">
@@ -70,7 +72,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    <li class="active">
+                    <li  class="active">
                         <a href="/userUnit/userProfile">
                             <img class="portrait" src="{{user.cduser.portrait.url}}">
                             <span class="name">{{user.username}}</span>
@@ -134,11 +136,19 @@
                     <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.title }}</a></h4>
                     <p> <small class="text-muted">{{ d.pureContent }}</small></p>
                     <p><span class="glyphicon glyphicon-tag"></span>
-                        <span class="label label-primary">Tag1</span>
-                        <span class="label label-success">Tag2</span>
-                        <span class="label label-info">Tag3</span>
-                        <span class="label label-warning">Tag4</span>
-                        <span class="label label-danger">Tag5</span>
+                        {% for l in duanLabel%}
+                    {%if l.colour == 1 %}
+                    <span class="label label-primary">{{l.text}}</span>
+                    {%elif l.colour == 2 %}
+                    <span class="label label-success">{{l.text}}</span>
+                    {%elif l.colour == 3 %}
+                    <span class="label label-info">{{l.text}}</span>
+                    {%elif l.colour == 4 %}
+                    <span class="label label-warning">{{l.text}}</span>
+                    {%elif l.colour == 5 %}
+                    <span class="label label-danger">{{l.text}}</span>
+                    {%endif%}
+                    {%endfor%}
                         <span style="float:right;"><span class="glyphicon glyphicon-thumbs-down "> </span>&nbsp;踩({{ d.down }})</span>
                         <span style="float:right;"><span class="glyphicon glyphicon-thumbs-up " > </span>&nbsp;赞({{ d.up }})</span>
                     </p>
@@ -156,11 +166,19 @@
                     <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.duan.title }}</a></h4>
                     <p> <small class="text-muted">{{ d.duan.pureContent }}</small></p>
                     <p><span class="glyphicon glyphicon-tag"></span>
-                        <span class="label label-primary">Tag1</span>
-                        <span class="label label-success">Tag2</span>
-                        <span class="label label-info">Tag3</span>
-                        <span class="label label-warning">Tag4</span>
-                        <span class="label label-danger">Tag5</span>
+                        {% for l in duanLabel%}
+                    {%if l.colour == 1 %}
+                    <span class="label label-primary">{{l.text}}</span>
+                    {%elif l.colour == 2 %}
+                    <span class="label label-success">{{l.text}}</span>
+                    {%elif l.colour == 3 %}
+                    <span class="label label-info">{{l.text}}</span>
+                    {%elif l.colour == 4 %}
+                    <span class="label label-warning">{{l.text}}</span>
+                    {%elif l.colour == 5 %}
+                    <span class="label label-danger">{{l.text}}</span>
+                    {%endif%}
+                    {%endfor%}
                         <span style="float:right;"><span class="glyphicon glyphicon-time"> </span>{{ d.time }}</span>
                     </p>
                     <hr>

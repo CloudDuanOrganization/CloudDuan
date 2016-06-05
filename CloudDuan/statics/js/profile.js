@@ -61,10 +61,11 @@ $("#newSigBtn").click(function(){
 			signature:$("#newSig").val()
 		},
 		complete: function() {
-			$("#newSig").hide();
-			$("#newSigBtn").hide();
-			$("#sig").html("<small>"+newSig+"\&nbsp\;<a class=\"change\" href=\"#\" id=\"changeSig\"><span  class=\"glyphicon glyphicon-pencil\"> </span></a></small>")
-			$("#sig").show();
+			// $("#newSig").hide();
+			// $("#newSigBtn").hide();
+			// $("#sig").html("<small>"+newSig+"\&nbsp\;<a class=\"change\" href=\"#\" id=\"changeSig\"><span  class=\"glyphicon glyphicon-pencil\"> </span></a></small>")
+			// $("#sig").show();
+			location.reload();
 		},
 	})
 });

@@ -143,7 +143,7 @@
                 </div>
                 <div class="col-md-11">
                     <h4><a class="duanlink" href="{% url 'duanView' d.id %}">{{ d.title }}</a></h4>
-                    <p> <small class="text-muted">{{ d.pureContent }}</small></p>
+                    <p class="content"> <small class="text-muted">{{ d.pureContent }}</small></p>
                     <p><span class="glyphicon glyphicon-tag"></span>
                      {% for l in d.label.all%}
                     {%if l.colour == 1 %}
@@ -173,7 +173,7 @@
                 </div>
                 <div class="col-md-11">
                     <h4><a class="duanlink" href="{% url 'duanView' d.duan.id %}">{{ d.duan.title }}</a></h4>
-                    <p> <small class="text-muted">{{ d.duan.pureContent }}</small></p>
+                    <p class="content"> <small class="text-muted">{{ d.duan.pureContent }}</small></p>
                     <p><span class="glyphicon glyphicon-tag"></span>
                     {% for l in d.duan.label.all%}
                     {%if l.colour == 1 %}

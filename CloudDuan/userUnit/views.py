@@ -142,3 +142,16 @@ def userMessageCenter(request):
     cduser.newsCount = 0
     cduser.save()
     return render_to_response('message.html', {'messageList':cduser.toUser.all()}, context_instance=RequestContext(request))
+
+@login_required
+def changeSignature(request):
+    if  (request.method == 'POST'):
+        try:
+            signature = request.POST.get('signature',' ')
+            user = request.user
+            cdUser = user.cduser
+            cdUser.signature = signature
+            cdUser.save()
+            return HttpResponseRedirect('/userUnit/userProfile/')
+        except:
+            return HttpResponseRedirect('/userUnit/userProfile/')

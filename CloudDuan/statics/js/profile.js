@@ -42,3 +42,31 @@ $("#history").click(function() {
 $("#own").click(function() {
 	window.location.href="/userUnit/userProfile/userOwn"
 });
+
+$("#changeSig").click(function() {
+	var oldSig = $("#oldSig").val();
+	$("#sig").hide();
+	$("#newSig").show();
+	$("#newSigBtn").show();
+	$("#newSig").attr('value', oldSig);
+	$("#newSig").attr('placeholder', oldSig);
+});
+$("#newSigBtn").click(function(){
+	var newSig = $("#newSig").val();
+	$.ajax({
+		url: '/userUnit/changeSignature/',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			signature:$("#newSig").val()
+		},
+		complete: function() {
+			$("#newSig").hide();
+			$("#newSigBtn").hide();
+			$("#sig").html("<small>"+newSig+"\&nbsp\;<a class=\"change\" href=\"#\" id=\"changeSig\"><span  class=\"glyphicon glyphicon-pencil\"> </span></a></small>")
+			$("#sig").show();
+		},
+	})
+});
+
+

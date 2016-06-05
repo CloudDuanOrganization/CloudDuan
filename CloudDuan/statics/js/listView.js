@@ -27,7 +27,7 @@ $("#upBtn").click(function() {
         success: function(data) {
             if(data.up_flag === 0){
                 
-                $("#upBtn").attr("data-content",data.up_err+",请不要再瞎几把乱点");
+                $("#upBtn").attr("data-content",data.up_err+",请不要再点了");
                 $("#upBtn").attr('title', '停一停');
                 $('#upBtn').popover('show')
                 // $('#upBtn').popover()
@@ -65,7 +65,7 @@ $("#downBtn").click(function() {
         success: function(data) {
             if(data.up_flag === 0){
                 
-                $("#downBtn").attr("data-content",data.up_err+",请不要再瞎几把乱点");
+                $("#downBtn").attr("data-content",data.up_err+",请不要再点了");
                 $("#downBtn").attr('title', '停一停');
                 $('#downBtn').popover('show')
 

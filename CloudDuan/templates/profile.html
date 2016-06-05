@@ -105,7 +105,16 @@
             </div>
             <div class="col-md-9">
                 <h2>{{user.username}}</h2>
-                <h3><small>{{user.cduser.signature}}</small></h3>
+                <input style="display:none;" id="oldSig" value="{{user.cduser.signature}}">
+                <h4 id="sig"><small>{{user.cduser.signature}}&nbsp;<a class="change" href="#" id="changeSig"><span  class="glyphicon glyphicon-pencil"> </span></a></small></h4>
+                <div class="row">
+                <div class="col-xs-3">
+                <input type="text" class="form-control" style="display:none;" id="newSig"  placeholder="">
+                </div>
+                <button type="button" class="btn btn-info" style="display:none;" id="newSigBtn">修改</button>
+                </div> 
+                
+
                 <br>
                 <br>
                 <br>

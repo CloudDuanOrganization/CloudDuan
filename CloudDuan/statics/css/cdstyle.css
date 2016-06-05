@@ -71,3 +71,24 @@ p.content {
     text-overflow: ellipsis;
     -moz-text-overflow: ellipsis;
    }
+
+a.change {
+    text-decoration: none;
+}
+
+a.change:link {
+    color: #CCCCCC;
+}
+
+a.change:visited {
+    color: #CCCCCC;
+}
+
+a.change:hover {
+    color: #CCCCCC;
+}
+
+a.change:active {
+    color: #CCCCCC;
+}
+
